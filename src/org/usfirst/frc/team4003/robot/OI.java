@@ -7,7 +7,7 @@
 
 package org.usfirst.frc.team4003.robot;
 
-//import org.usfirst.frc.team4003.commands.TriggerGearRelease;
+import org.usfirst.frc.team4003.robot.commands.TriggerGearRelease;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -20,11 +20,14 @@ public class OI {
 
     public XboxController driver = new XboxController(RobotMap.DRIVER_CONTROLLER);;
     
-    JoystickButton gearRelease = new JoystickButton(driver,3);
+    JoystickButton gearOpen = new JoystickButton(driver,3);
+    JoystickButton gearClose = new JoystickButton(driver,4);
     
     public OI() {
     	//gearRelease.whileHeld(new TriggerGearRelease());
     	//gearRelease.toggleWhenPressed(new TriggerGearRelease());
+    	gearOpen.whenPressed(new TriggerGearRelease(true));
+    	gearClose.whenPressed(new TriggerGearRelease(false));
     }
 
 }

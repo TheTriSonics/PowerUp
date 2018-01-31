@@ -10,10 +10,13 @@ package org.usfirst.frc.team4003.robot;
 import java.io.IOException;
 import java.util.logging.Level;
 
+import org.usfirst.frc.team4003.logging.FRCLogger;
+import org.usfirst.frc.team4003.robot.commands.ExecuteDriveProfile;
 import org.usfirst.frc.team4003.robot.commands.PlaybackProfile;
 import org.usfirst.frc.team4003.robot.commands.autonomous.MotionProfileTester;
-import org.usfirst.frc.team4003.logging.FRCLogger;
+import org.usfirst.frc.team4003.robot.commands.autonomous.TestAutonomous;
 import org.usfirst.frc.team4003.robot.profiling.AutonProfile;
+import org.usfirst.frc.team4003.robot.profiling.DriveTrainProfile;
 import org.usfirst.frc.team4003.robot.subsystems.Pneumatics;
 import org.usfirst.frc.team4003.robot.subsystems.TalonDriveTrain;
 
@@ -91,7 +94,9 @@ public class Robot extends TimedRobot {
     		autonomousCommand.cancel();
     		autonomousCommand = null;
     	}
-        autonomousCommand = new PlaybackProfile("/home/lvuser/profiles/test.csv");
+    	DriveTrainProfile profile = new DriveTrainProfile("/home/lvuser/profiles/test.csv");
+        //autonomousCommand = new PlaybackProfile("/home/lvuser/profiles/test.csv");
+    	autonomousCommand = new TestAutonomous(profile);
         System.out.println(autonomousCommand);
         
         if (autonomousCommand != null) {
