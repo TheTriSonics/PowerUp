@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 
 import org.usfirst.frc.team4003.logging.FRCLogger;
-import org.usfirst.frc.team4003.robot.commands.ExecuteDriveProfile;
-import org.usfirst.frc.team4003.robot.commands.PlaybackProfile;
 import org.usfirst.frc.team4003.robot.commands.autonomous.MotionProfileTester;
 import org.usfirst.frc.team4003.robot.commands.autonomous.TestAutonomous;
 import org.usfirst.frc.team4003.robot.profiling.AutonProfile;
@@ -20,8 +18,11 @@ import org.usfirst.frc.team4003.robot.profiling.DriveTrainProfile;
 import org.usfirst.frc.team4003.robot.subsystems.Pneumatics;
 import org.usfirst.frc.team4003.robot.subsystems.TalonDriveTrain;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -60,6 +61,7 @@ public class Robot extends TimedRobot {
 
         oi = new OI();
         chooser.addDefault("Motion Profile Tester", new MotionProfileTester(new AutonProfile()));
+        chooser.addObject("Normal Motion Profile", null);
         // chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
 
@@ -94,7 +96,7 @@ public class Robot extends TimedRobot {
     		autonomousCommand.cancel();
     		autonomousCommand = null;
     	}
-    	DriveTrainProfile profile = new DriveTrainProfile("/home/lvuser/profiles/test.csv");
+    	DriveTrainProfile profile = new DriveTrainProfile("/home/lvuser/profiles/profile_3_left.profile.csv");
         //autonomousCommand = new PlaybackProfile("/home/lvuser/profiles/test.csv");
     	autonomousCommand = new TestAutonomous(profile);
         System.out.println(autonomousCommand);
@@ -115,7 +117,8 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("rightEncoder", sensors.getRightEncoder());
     	SmartDashboard.putNumber("RobotX", position[0]);
     	SmartDashboard.putNumber("RobotY", position[1]);
-    	SmartDashboard.putNumber("Heading", sensors.getHeading());
+    	SmartDashboard.putData(sensors.getGyro());
+    	SmartDashboard.putData(new PowerDistributionPanel());
     }
 
     @Override

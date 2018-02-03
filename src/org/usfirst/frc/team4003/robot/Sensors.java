@@ -32,6 +32,10 @@ public class Sensors {
     	return -navX.getYaw();
     }
     
+    public AHRS getGyro() {
+    	return navX;
+    }
+    
     public double getHeading() {
     	synchronized(lock) {
     		return readGyro() -gyroOffset;
