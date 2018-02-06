@@ -6,6 +6,7 @@ import org.usfirst.frc.team4003.robot.profiling.Waypoint;
 
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -85,10 +86,23 @@ public class ExecuteDriveProfile extends Command implements Runnable {
     	double rightPos = rightPoint.position;
     	double rightVel = rightPoint.velocity;
     	double heading = rightPoint.angle;
-    	double leftError = leftPos-Robot.sensors.getLeftPosition();
-    	double rightError = rightPos-Robot.sensors.getRightPosition();
-    	double correction = kAngle * (heading - Robot.sensors.getHeading());
     	
+    	double currentLeftPos = Robot.sensors.getLeftPosition();
+    	double currentRightPos = Robot.sensors.getRightPosition();
+    	
+    	if(Robot.drive.isSwitched()) {
+    		double temp = currentLeftPos;
+    		currentLeftPos = -currentRightPos;
+    		currentRightPos = -temp;
+    	}
+    	
+    	double leftError = leftPos-currentLeftPos;   	
+    	double rightError = rightPos-currentRightPos;
+    	double angleError = Robot.drive.normalizeAngle(heading - Robot.drive.getHeading(), 180);
+    	double correction = kAngle * angleError;
+    	if (profile.getLeftWaypoints().size() - currentPoint < 20) correction = 0;
+    	SmartDashboard.putNumber("heading", Robot.drive.getHeading());
+    	System.out.println(leftError + " " + rightError + " " + angleError);
     	
     	currentPoint++;
     	

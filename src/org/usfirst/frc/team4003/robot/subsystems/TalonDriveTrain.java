@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.hal.FRCNetComm.tResourceType;
 /**
  *
  */
-public class TalonDriveTrain extends Subsystem {
+public class TalonDriveTrain extends SwitchableDriveTrain {
 	TalonSRX left1, left2, left3, right1, right2, right3;
 	
 	int switchCount = 0;
@@ -55,6 +55,11 @@ public class TalonDriveTrain extends Subsystem {
 		}
 		*/
 		//System.out.println("left power: " + left);
+		if (switched) {
+			double temp = left;
+			left = -right;
+			right = -temp;
+		}
 		left1.set(ControlMode.PercentOutput, left);
 		left2.set(ControlMode.PercentOutput, left);
 		left3.set(ControlMode.PercentOutput, left);
@@ -125,7 +130,7 @@ public class TalonDriveTrain extends Subsystem {
 	    right2.set(ControlMode.PercentOutput, rightMotorSpeed);
 	    right3.set(ControlMode.PercentOutput, rightMotorSpeed);
 	}
-	
+	/*
 	public void switchDirection(){
 		TalonSRX temp = left1;
 		left1 = right1;
@@ -144,7 +149,7 @@ public class TalonDriveTrain extends Subsystem {
 		right3.setInverted(!right3.getInverted());
 		switchCount = 1-switchCount;
 	}
-	
+	*/
 	public int getSwitchCount() {
 		return switchCount;
 	}

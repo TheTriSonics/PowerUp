@@ -13,8 +13,8 @@ public class TestAutonomous extends CommandGroup {
 
 	public TestAutonomous(DriveTrainProfile profile) {
 		addParallel(new ExecuteDriveProfile(profile));
-		addSequential(new WaitForTime(2000));
-		addSequential(new TriggerGearRelease(true));
+		//addSequential(new WaitForTime(2000));
+		//addSequential(new TriggerGearRelease(true));
 		
 		
 	}

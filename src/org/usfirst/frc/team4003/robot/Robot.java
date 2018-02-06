@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 
 import org.usfirst.frc.team4003.logging.FRCLogger;
+import org.usfirst.frc.team4003.robot.commands.SwitchDirection;
+import org.usfirst.frc.team4003.robot.commands.autonomous.DriveToPoint;
 import org.usfirst.frc.team4003.robot.commands.autonomous.MotionProfileTester;
 import org.usfirst.frc.team4003.robot.commands.autonomous.TestAutonomous;
 import org.usfirst.frc.team4003.robot.profiling.AutonProfile;
@@ -25,6 +27,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -96,9 +99,15 @@ public class Robot extends TimedRobot {
     		autonomousCommand.cancel();
     		autonomousCommand = null;
     	}
-    	DriveTrainProfile profile = new DriveTrainProfile("/home/lvuser/profiles/profile_3_left.profile.csv");
+    	
+    	CommandGroup group = new CommandGroup();
+    	DriveTrainProfile profile = new DriveTrainProfile("/home/lvuser/profiles/l-switch-left.profile.csv");
         //autonomousCommand = new PlaybackProfile("/home/lvuser/profiles/test.csv");
-    	autonomousCommand = new TestAutonomous(profile);
+    	group.addSequential( new TestAutonomous(profile));
+    	profile = new DriveTrainProfile("/home/lvuser/profiles/l-switch-backup.profile.csv");
+    	group.addSequential(new SwitchDirection());
+    	group.addSequential( new TestAutonomous(profile));
+    	autonomousCommand = group;
         System.out.println(autonomousCommand);
         
         if (autonomousCommand != null) {
@@ -118,7 +127,7 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("RobotX", position[0]);
     	SmartDashboard.putNumber("RobotY", position[1]);
     	SmartDashboard.putData(sensors.getGyro());
-    	SmartDashboard.putData(new PowerDistributionPanel());
+    	//SmartDashboard.putData(new PowerDistributionPanel());
     }
 
     @Override
@@ -140,8 +149,8 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("rightEncoder", sensors.getRightEncoder());
     	SmartDashboard.putNumber("RobotX", position[0]);
     	SmartDashboard.putNumber("RobotY", position[1]);
-    	SmartDashboard.putNumber("Heading", sensors.getHeading());
-    	System.out.println(sensors.getLeftPosition() + " " + sensors.getRightPosition());
+    	SmartDashboard.putNumber("Heading", drive.getHeading());
+    	//System.out.println(sensors.getLeftPosition() + " " + sensors.getRightPosition());
         Scheduler.getInstance().run();
     }
 

@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team4003.robot;
 
+import org.usfirst.frc.team4003.robot.commands.SwitchDirection;
 import org.usfirst.frc.team4003.robot.commands.TriggerGearRelease;
 
 import edu.wpi.first.wpilibj.XboxController;
@@ -22,12 +23,14 @@ public class OI {
     
     JoystickButton gearOpen = new JoystickButton(driver,3);
     JoystickButton gearClose = new JoystickButton(driver,4);
+    JoystickButton switchDirection = new JoystickButton(driver,2);
     
     public OI() {
     	//gearRelease.whileHeld(new TriggerGearRelease());
     	//gearRelease.toggleWhenPressed(new TriggerGearRelease());
     	gearOpen.whenPressed(new TriggerGearRelease(true));
     	gearClose.whenPressed(new TriggerGearRelease(false));
+    	switchDirection.whenPressed(new SwitchDirection());
     }
 
 }
