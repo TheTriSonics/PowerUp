@@ -13,6 +13,7 @@ import org.usfirst.frc.team4003.logging.FRCLogger;
 public class CSVReader {
 	String filename;
     double vmax;
+    List<String> commands = new ArrayList<>();
     public CSVReader(String filename) {
 	this.filename = filename;
     }
@@ -27,9 +28,9 @@ public class CSVReader {
 	    inputStream = new Scanner(file);
 	    vmax = Double.parseDouble(inputStream.nextLine());
 	    while(inputStream.hasNextLine()){
-		String line= inputStream.nextLine();
-		String[] values = line.split(",");
-		lines.add(Arrays.asList(values));
+	    	String line= inputStream.nextLine();
+	    	String[] values = line.split(",");
+	    	lines.add(Arrays.asList(values));
 	    }
 	    
 	    inputStream.close();
@@ -43,11 +44,17 @@ public class CSVReader {
 	for(int j = 0; j < lines.size(); j++) {
 	    List<String> line = lines.get(j);
 	    for (int i = 0; i < 5; i++) {
-		profile[j][i] = Double.parseDouble(line.get(i));
+	    	profile[j][i] = Double.parseDouble(line.get(i));
 	    }
+	    
+	    commands.add(line.get(5));
 	    
 	}
 	return profile;
+    }
+    
+    public List<String> getCommands() {
+    	return commands;
     }
 
     public double getVmax() {

@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public abstract class SwitchableDriveTrain extends Subsystem {
 	boolean switched = false;
-	public void switched() {
+	public void switchDrive() {
 		switched = !switched;
 	}
 	

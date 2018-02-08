@@ -79,6 +79,8 @@ public class ExecuteDriveProfile extends Command implements Runnable {
 		// TODO Auto-generated method stub
 		//System.out.println("In Run " + currentPoint + " " + profile.length);
     	if(currentPoint == profile.getLeftWaypoints().size()) return;
+    	String command = profile.getCommand(currentPoint ).trim();
+    	if (command.length() > 0)Robot.startCommand(command);
     	Waypoint leftPoint = (Waypoint) profile.getLeftWaypoints().get(currentPoint);
     	Waypoint rightPoint = (Waypoint) profile.getRightWaypoints().get(currentPoint);
     	double leftPos = leftPoint.position;
@@ -102,7 +104,7 @@ public class ExecuteDriveProfile extends Command implements Runnable {
     	double correction = kAngle * angleError;
     	if (profile.getLeftWaypoints().size() - currentPoint < 20) correction = 0;
     	SmartDashboard.putNumber("heading", Robot.drive.getHeading());
-    	System.out.println(leftError + " " + rightError + " " + angleError);
+    	//System.out.println(leftError + " " + rightError + " " + angleError);
     	
     	currentPoint++;
     	

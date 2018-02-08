@@ -16,7 +16,7 @@ public class SwitchDirection extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drive.switched();
+    	Robot.drive.switchDrive();
     	System.out.println("directionSwitched");
     }
 

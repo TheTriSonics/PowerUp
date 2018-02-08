@@ -12,6 +12,7 @@ public class DriveToPoint extends Command {
 	double targetX, targetY;
 	double kAngle = 0.04;
 	double distance;
+	double angleTolerance = 3;
 	
     public DriveToPoint(double x, double y, double speed) {
         // Use requires() here to declare subsystem dependencies
@@ -23,6 +24,7 @@ public class DriveToPoint extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.sensors.resetDriveEncoder();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -31,11 +33,19 @@ public class DriveToPoint extends Command {
     	double deltaX = targetX - position[0];
     	double deltaY = targetY - position[1];
     	distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-    	double theta = Math.atan2(deltaY, deltaX);
+    	double theta = Math.toDegrees(Math.atan2(deltaY, deltaX));
     	double heading = Robot.drive.getHeading();
-    	double correction = kAngle * (theta - heading);
+    	double angleError = Robot.drive.normalizeAngle(theta - heading, 180);
+    	double correction = kAngle * (angleError);
     	double leftPower = speed - correction;
     	double rightPower = speed + correction;
+    	if (angleError > angleTolerance) {
+    		leftPower = 0;
+    		rightPower = speed;
+    	} else if (angleError < -angleTolerance) {
+    		rightPower = 0;
+    		leftPower = speed;
+    	}
     	Robot.drive.setPower(leftPower, rightPower);
     }
 

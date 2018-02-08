@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4003.robot.profiling;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.usfirst.frc.team4003.robot.CSVReader;
 
@@ -9,12 +10,15 @@ public class DriveTrainProfile {
 	private String profileFile;
 	private ArrayList<Waypoint> leftWaypoints;
 	private ArrayList<Waypoint> rightWaypoints;
+	private List<String> commands;
 	
 	public DriveTrainProfile(String profileFile) {
 		this.profileFile = profileFile;
 		leftWaypoints = new ArrayList<Waypoint>();
 		rightWaypoints = new ArrayList<Waypoint>();
-		double[][] profilePoints = new CSVReader(this.profileFile).parseCSV();
+		CSVReader reader = new CSVReader(this.profileFile);
+		double[][] profilePoints = reader.parseCSV();
+		commands = reader.getCommands();
 		
 		for (double[] point : profilePoints) {
 			Waypoint leftWaypoint = new Waypoint();
@@ -35,6 +39,11 @@ public class DriveTrainProfile {
 	    	rightWaypoints.add(rightWaypoint);
 		}
 	}
+	
+	public String getCommand(int j) {
+		return commands.get(j);
+	}
+	
 	public ArrayList getLeftWaypoints() {
 		return leftWaypoints;
 	}

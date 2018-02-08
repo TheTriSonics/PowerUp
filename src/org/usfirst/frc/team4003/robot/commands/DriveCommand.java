@@ -18,6 +18,7 @@ public class DriveCommand extends Command {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.drive);
     }
+    private final double MAX_POWER = 0.4;
 
     @Override
     protected void initialize() {
@@ -26,8 +27,8 @@ public class DriveCommand extends Command {
 
     @Override
     protected void execute() {
-        double yOutput = -Robot.oi.driver.getY(Hand.kLeft);
-        double xOutput = -Robot.oi.driver.getY(Hand.kRight);
+        double yOutput = MAX_POWER * -Robot.oi.driver.getY(Hand.kLeft);
+        double xOutput = MAX_POWER * -Robot.oi.driver.getY(Hand.kRight);
         //Robot.drive.arcadeDrive(yOutput, xOutput, false);
         Robot.drive.setPower(yOutput, xOutput);
         //Robot.drive.setRightOutput(ControlMode.PercentOutput, xOutput);
