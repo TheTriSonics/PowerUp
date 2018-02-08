@@ -26,7 +26,8 @@ public class CSVReader {
 	
 	try{
 	    inputStream = new Scanner(file);
-	    vmax = Double.parseDouble(inputStream.nextLine());
+	    vmax = Double.parseDouble(inputStream.nextLine().trim());
+	    //System.out.println("vmax equals: " + vmax);
 	    while(inputStream.hasNextLine()){
 	    	String line= inputStream.nextLine();
 	    	String[] values = line.split(",");

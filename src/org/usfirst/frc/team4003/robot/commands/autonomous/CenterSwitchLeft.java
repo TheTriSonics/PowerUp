@@ -15,7 +15,7 @@ public class CenterSwitchLeft extends CommandGroup {
     	DriveTrainProfile profile = new DriveTrainProfile("/home/lvuser/profiles/c-switch-left.profile.csv");
     	addSequential(new ExecuteDriveProfile(profile));
     	addSequential(new WaitForTime(1000));
-    	DriveTrainProfile profile2 = new DriveTrainProfile("/home/lvuser/profiles/c-switch-left-reverse.profile.csv");
+    	DriveTrainProfile profile2 = new DriveTrainProfile("/home/lvuser/profiles/c-switch-left-backwards.profile.csv");
     	addSequential(new SwitchDirection());
     	addSequential(new ExecuteDriveProfile(profile2));
     	addSequential(new SwitchDirection());
