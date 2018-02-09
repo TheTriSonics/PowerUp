@@ -30,7 +30,7 @@ public class Robot extends TimedRobot {
 
     //public static final DriveSubsystem drive = new DriveSubsystem();
 	public static final TalonDriveTrain drive = new TalonDriveTrain();
-	public static final Pneumatics pneumatics = new Pneumatics();
+	public static final Pneumatics pneumatics = null;// = new Pneumatics();
     public static OI oi;
     public static Sensors sensors;
     
@@ -130,7 +130,7 @@ public class Robot extends TimedRobot {
     public static Command getNextCommand() {
     	synchronized(lock) {
     		if(nextCommand.length() == 0) return null;
-    		if(nextCommand.equals("raiseLift")) return new TriggerGearRelease(true);
+    		//if(nextCommand.equals("raiseLift")) return new TriggerGearRelease(true);
     		return null;
     	}
     }

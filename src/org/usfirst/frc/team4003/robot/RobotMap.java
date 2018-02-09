@@ -22,13 +22,17 @@ public class RobotMap {
     
     public static int DRIVER_CONTROLLER = 0;
 
+    // Can Bus
     public static final int LEFT_ONE = 3;
 	public static final int LEFT_TWO = 4;
 	public static final int LEFT_THREE = 5;
 	public static final int RIGHT_ONE = 6;
 	public static final int RIGHT_TWO = 1;
 	public static final int RIGHT_THREE = 2;
-
+    public static final int LEFT_LIFT = 10;
+    public static final int RIGHT_LIFT = 11;
+    
+    // DIOs
 	public static final int LEFT_ENCODER_A = 2;
 	public static final int LEFT_ENCODER_B = 3;
 	
@@ -36,5 +40,17 @@ public class RobotMap {
 	public static final int RIGHT_ENCODER_B = 1;
 	
 	public static final int GEAR_RELEASE = 1;
+
+	// PCM
+    public static final int SHIFTER_PORT = 0;
+    public static final int CLAMP_PORT = 1;
+    public static final int PUSHER_PORT = 2;
+    public static final int INTAKE_PORT = 3;
+    public static final int FLIPPERS_PORT = 4;
+    
+    // PWM
+    public static final int LEFT_INTAKE = 0;
+    public static final int RIGHT_INTAKE = 1;
+
 
 }

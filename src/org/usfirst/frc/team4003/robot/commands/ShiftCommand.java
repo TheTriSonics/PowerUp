@@ -7,23 +7,23 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class TriggerGearRelease extends Command {
-	boolean open;
-    public TriggerGearRelease(boolean open) {
+public class ShiftCommand extends Command {
+
+	boolean high;
+	
+    public ShiftCommand(boolean high) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.pneumatics);
-    	this.open = open;
+    	this.high = high;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//Robot.pneumatics.setState(open);
+    	Robot.pneumatics.setState(Robot.pneumatics.SHIFTER, high);
     }
-    
+
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -38,6 +38,5 @@ public class TriggerGearRelease extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	this.end();
     }
 }

@@ -7,11 +7,14 @@
 
 package org.usfirst.frc.team4003.robot;
 
-import org.usfirst.frc.team4003.robot.commands.SwitchDirection;
-import org.usfirst.frc.team4003.robot.commands.TriggerGearRelease;
+import org.usfirst.frc.team4003.robot.commands.ShiftCommand;
+import org.usfirst.frc.team4003.robot.commands.ToggleClamp;
+import org.usfirst.frc.team4003.robot.commands.ToggleFlippers;
+import org.usfirst.frc.team4003.robot.commands.ToggleIntake;
+import org.usfirst.frc.team4003.robot.commands.TogglePusher;
+import org.usfirst.frc.team4003.robot.triggers.XboxTrigger;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -19,18 +22,27 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */ 
 public class OI {
 
-    public XboxController driver = new XboxController(RobotMap.DRIVER_CONTROLLER);;
-    
-    JoystickButton gearOpen = new JoystickButton(driver,3);
-    JoystickButton gearClose = new JoystickButton(driver,4);
-    JoystickButton switchDirection = new JoystickButton(driver,2);
+	public XboxController driver = new XboxController(0);
+	public XboxController operator = new XboxController(1);
     
     public OI() {
-    	//gearRelease.whileHeld(new TriggerGearRelease());
-    	//gearRelease.toggleWhenPressed(new TriggerGearRelease());
-    	gearOpen.whenPressed(new TriggerGearRelease(true));
-    	gearClose.whenPressed(new TriggerGearRelease(false));
-    	switchDirection.whenPressed(new SwitchDirection());
+    	XboxTrigger shiftHigh = new XboxTrigger(driver, XboxTrigger.B);
+    	XboxTrigger shiftLow = new XboxTrigger(driver, XboxTrigger.X);
+    	
+    	shiftHigh.whenActive(new ShiftCommand(true));
+    	shiftLow.whenActive(new ShiftCommand(false));
+    	
+    	XboxTrigger toggleIntake = new XboxTrigger(operator, XboxTrigger.A);
+    	XboxTrigger togglePusher = new XboxTrigger(operator, XboxTrigger.B);
+    	XboxTrigger toggleClamp = new XboxTrigger(operator, XboxTrigger.X);
+    	XboxTrigger toggleFlippers = new XboxTrigger(operator, XboxTrigger.Y);
+    	
+    	toggleIntake.whenActive(new ToggleIntake());
+    	togglePusher.whenActive(new TogglePusher());
+    	toggleClamp.whenActive(new ToggleClamp());
+    	toggleFlippers.whenActive(new ToggleFlippers());
+
+    	
     }
 
 }
