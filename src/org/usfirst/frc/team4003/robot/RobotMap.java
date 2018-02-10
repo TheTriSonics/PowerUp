@@ -17,7 +17,7 @@ public class RobotMap {
 
     public static boolean DEBUG = true;
 
-	public static final double ENCODER_TICKS_PER_INCH = 6;
+	public static final double ENCODER_TICKS_PER_INCH = 23.8;
     public static final int EXAMPLE_MOTOR_UNITS_PER_ROTATION = 4096;
     
     public static int DRIVER_CONTROLLER = 0;
@@ -31,6 +31,11 @@ public class RobotMap {
 	public static final int RIGHT_THREE = 2;
     public static final int LEFT_LIFT = 10;
     public static final int RIGHT_LIFT = 11;
+    
+    public static final int LEFT_MASTER = 2;
+    public static final int LEFT_SLAVE = 1;
+    public static final int RIGHT_MASTER = 5;
+    public static final int RIGHT_SLAVE = 4;
     
     // DIOs
 	public static final int LEFT_ENCODER_A = 2;

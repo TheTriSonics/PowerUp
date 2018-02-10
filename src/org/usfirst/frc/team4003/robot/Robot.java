@@ -15,8 +15,7 @@ import org.usfirst.frc.team4003.robot.commands.TriggerGearRelease;
 import org.usfirst.frc.team4003.robot.commands.autonomous.*;
 import org.usfirst.frc.team4003.robot.commands.autonomous.MotionProfileTester;
 import org.usfirst.frc.team4003.robot.profiling.AutonProfile;
-import org.usfirst.frc.team4003.robot.subsystems.Pneumatics;
-import org.usfirst.frc.team4003.robot.subsystems.TalonDriveTrain;
+import org.usfirst.frc.team4003.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -29,8 +28,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 
     //public static final DriveSubsystem drive = new DriveSubsystem();
-	public static final TalonDriveTrain drive = new TalonDriveTrain();
+	//public static final TalonDriveTrain drive = new TalonDriveTrain();
 	public static final Pneumatics pneumatics = null;// = new Pneumatics();
+	public static final LiftMotors lift = null;
+	public static final IntakeMotors intake = null;
+	public static final PowerUpDriveTrain drive = new PowerUpDriveTrain();
+
     public static OI oi;
     public static Sensors sensors;
     
@@ -42,9 +45,9 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
     	sensors = new Sensors();
-    	Compressor c = new Compressor(0);
-		c.setClosedLoopControl(true);
-		c.start();
+    	//Compressor c = new Compressor(0);
+		//c.setClosedLoopControl(true);
+		//c.start();
     	
         // Trying to instantiate our logger class for debugging.
         try {
@@ -94,7 +97,7 @@ public class Robot extends TimedRobot {
     		autonomousCommand = null;
     	}
     	
-    	autonomousCommand = new RightScaleLeft();
+    	autonomousCommand = new RightScaleRight();
         System.out.println(autonomousCommand);
         
         if (autonomousCommand != null) {
@@ -146,6 +149,8 @@ public class Robot extends TimedRobot {
         }
     }
 
+    long lastTime = 0;
+    int lastLeftEncoder, lastRightEncoder;
     @Override
     public void teleopPeriodic() {
     	sensors.updatePosition();
@@ -157,6 +162,20 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("Heading", drive.getHeading());
     	//System.out.println(sensors.getLeftPosition() + " " + sensors.getRightPosition());
         Scheduler.getInstance().run();
+        long currentTime = System.currentTimeMillis();
+        int leftEncoder = sensors.getLeftEncoder();
+        int rightEncoder = sensors.getRightEncoder();
+        if (lastTime != 0) {
+        	long elapsedTime = currentTime - lastTime;
+        	int changeLeftEncoder = leftEncoder - lastLeftEncoder;
+        	int changeRightEncoder = rightEncoder - lastRightEncoder;
+        	double distance = (changeLeftEncoder + changeRightEncoder)/2.0;
+        	double velocity = distance / elapsedTime;
+        	SmartDashboard.putNumber("Velocity", velocity);
+        }
+        lastTime = currentTime;
+        lastLeftEncoder = leftEncoder;
+        lastRightEncoder = rightEncoder;
     }
 
     @Override

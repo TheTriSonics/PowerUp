@@ -19,9 +19,9 @@ public class Sensors {
     private Object lock = new Object();
     
     public Sensors() {
-    	rightEncoder = new Encoder(0, 1);
-    	rightEncoder.setReverseDirection(true);
-    	leftEncoder = new Encoder(2, 3);
+    	//rightEncoder = new Encoder(0, 1);
+    	//rightEncoder.setReverseDirection(true);
+    	//leftEncoder = new Encoder(2, 3);
     	leftOffset = 0;
     	rightOffset = 0;
     	gyroOffset = 0;
@@ -47,16 +47,18 @@ public class Sensors {
     }
     
 	public int getLeftEncoder() {
-		return leftEncoder.get() - leftOffset;
+		//return leftEncoder.get() - leftOffset;
+		return Robot.drive.getLeftPosition() - leftOffset;
 	}
 	
 	public int getRightEncoder() {
-		return (rightEncoder.get()) - rightOffset;
+		//return (rightEncoder.get()) - rightOffset;
+		return Robot.drive.getRightPosition() - rightOffset;
 	}
 	
 	public void resetDriveEncoder() {
-		leftOffset = leftEncoder.get();
-		rightOffset = (rightEncoder.get());
+		leftOffset = Robot.drive.getLeftPosition();
+		rightOffset = Robot.drive.getRightPosition();
 		lastLeftEncoder = 0;
 		lastRightEncoder = 0;
 	}

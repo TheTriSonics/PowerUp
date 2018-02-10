@@ -1,6 +1,6 @@
 package org.usfirst.frc.team4003.robot.subsystems;
 
-import org.usfirst.frc.team4003.robot.commands.DriveCommand;
+import org.usfirst.frc.team4003.robot.commands.*;
 
 //import com.allendalerobotics.frc.motionprofiling.commands.ArcadeDrive;
 //import com.allendalerobotics.frc.motionprofiling.commands.TankDrive;
@@ -55,7 +55,7 @@ public class TalonDriveTrain extends SwitchableDriveTrain {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new DriveCommand());
+        setDefaultCommand(new ArcadeDrive());
     	
     }
 }
