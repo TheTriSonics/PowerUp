@@ -10,9 +10,14 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveToPoint extends Command {
 	double speed;
 	double targetX, targetY;
-	double kAngle = 0.04;
+	double kAngle = 0.02;
 	double distance;
-	double angleTolerance = 3;
+	double angleTolerance = 5;
+	long timeout;
+	double lastDistance = 10000;
+	boolean finished = false;
+	double currentSpeed = 0.2;
+	double slowDistance = 15;
 	
     public DriveToPoint(double x, double y, double speed) {
         // Use requires() here to declare subsystem dependencies
@@ -25,6 +30,7 @@ public class DriveToPoint extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.sensors.resetDriveEncoder();
+    	timeout = System.currentTimeMillis() + 3000;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -37,8 +43,16 @@ public class DriveToPoint extends Command {
     	double heading = Robot.drive.getHeading();
     	double angleError = Robot.drive.normalizeAngle(theta - heading, 180);
     	double correction = kAngle * (angleError);
-    	double leftPower = speed - correction;
-    	double rightPower = speed + correction;
+    	
+    	currentSpeed += 0.02;
+    	if (currentSpeed > speed) currentSpeed = speed;
+    	
+    	double ramp = distance/slowDistance;
+    	if (ramp > 1) ramp = 1;
+    	if (ramp < 0.5) correction = 0;
+    	
+    	double leftPower = currentSpeed*ramp - correction;
+    	double rightPower = currentSpeed*ramp + correction;
     	if (angleError > angleTolerance) {
     		leftPower = 0;
     		rightPower = speed;
@@ -47,11 +61,15 @@ public class DriveToPoint extends Command {
     		leftPower = speed;
     	}
     	Robot.drive.setPower(leftPower, rightPower);
+    	
+    	if (lastDistance < distance) finished = true;
+    	lastDistance = distance;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return distance < 4;
+    	if (System.currentTimeMillis() > timeout) return true;
+    	return finished || distance < 4;
     }
 
     // Called once after isFinished returns true
