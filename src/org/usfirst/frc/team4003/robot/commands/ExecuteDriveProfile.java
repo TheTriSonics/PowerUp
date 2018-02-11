@@ -15,7 +15,7 @@ public class ExecuteDriveProfile extends Command implements Runnable {
 
 	private final double kP = 0.025;
     private final double kAngle = 0.0125;
-    private final double vMax = 2.88;
+    private final double vMax = 1.008; // 2.88;
 	
 	private DriveTrainProfile profile;
 	private int currentPoint = 0;

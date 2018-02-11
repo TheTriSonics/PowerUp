@@ -62,7 +62,7 @@ public class DriveToPoint extends Command {
     	}
     	Robot.drive.setPower(leftPower, rightPower);
     	
-    	if (lastDistance < distance) finished = true;
+    	if (lastDistance < distance && distance < 20) finished = true;
     	lastDistance = distance;
     }
 
