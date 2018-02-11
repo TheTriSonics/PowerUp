@@ -12,7 +12,7 @@ public class RightScaleLeft extends CommandGroup {
 
     public RightScaleLeft() {
     	DriveTrainProfile profile = new DriveTrainProfile("/home/lvuser/profiles/r-scale-left.profile.csv");
-    	//addSequential(new ExecuteDriveProfile(profile));
+    	addSequential(new ExecuteDriveProfile(profile));
     	addSequential(new WaitForTime(1000));
     }
 }

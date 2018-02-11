@@ -19,6 +19,6 @@ public class RightSwitchRight extends CommandGroup {
     	addSequential(new SwitchDirection());
     	addSequential(new ExecuteDriveProfile(profile));
     	addSequential(new SwitchDirection());
-    	addSequential(new DriveToPoint(198, 37, 0.4));
+    	addSequential(new DriveToPoint(198, 30, 0.35));
     }
 }

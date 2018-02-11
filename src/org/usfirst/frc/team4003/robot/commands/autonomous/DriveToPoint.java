@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveToPoint extends Command {
 	double speed;
 	double targetX, targetY;
-	double kAngle = 0.02;
+	double kAngle = 0.01;
 	double distance;
 	double angleTolerance = 5;
 	long timeout;
@@ -55,10 +55,10 @@ public class DriveToPoint extends Command {
     	double rightPower = currentSpeed*ramp + correction;
     	if (angleError > angleTolerance) {
     		leftPower = 0;
-    		rightPower = speed;
+    		rightPower = 0.6*speed;
     	} else if (angleError < -angleTolerance) {
     		rightPower = 0;
-    		leftPower = speed;
+    		leftPower = 0.6*speed;
     	}
     	Robot.drive.setPower(leftPower, rightPower);
     	
