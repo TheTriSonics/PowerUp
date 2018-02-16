@@ -5,6 +5,7 @@ import org.usfirst.frc.team4003.robot.commands.PneumaticsCommand;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -16,6 +17,9 @@ public class Pneumatics extends Subsystem {
     public static final int PUSHER = 2;
     public static final int INTAKE = 3;
     public static final int FLIPPERS = 4;
+    String[] labels = new String[] {
+    		"Shifter","Clamp","Pusher","Intake","Flippers"
+    };
     
 	Solenoid[] solenoids = new Solenoid[5];
 	boolean[] states = new boolean[5];
@@ -40,7 +44,10 @@ public class Pneumatics extends Subsystem {
 	}
 	
 	public void update() {
-		for(int i = 0; i < 5; i++) solenoids[i].set(states[i]);
+		for(int i = 0; i < 5; i++) {
+			solenoids[i].set(states[i]);
+			SmartDashboard.putBoolean(labels[i], states[i]);
+		}
 	}
 	
     public void initDefaultCommand() {

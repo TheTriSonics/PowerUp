@@ -13,6 +13,17 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class LiftMotors extends Subsystem {
+	
+	public final int GROUND_LEVEL = 0;
+	public final int DRIVING = 1;
+	public final int SWITCH = 2;
+	public final int SCALE = 3;
+	public final int MANUAL = 4;
+	int state = GROUND_LEVEL;
+	public void setState(int s) {
+		state = s;
+	}
+	
 
 	TalonSRX master = new TalonSRX(RobotMap.LEFT_LIFT);
 	TalonSRX slave = new TalonSRX(RobotMap.RIGHT_LIFT);

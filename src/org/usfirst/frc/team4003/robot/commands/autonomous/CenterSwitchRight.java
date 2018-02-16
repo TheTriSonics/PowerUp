@@ -19,9 +19,9 @@ public class CenterSwitchRight extends CommandGroup {
     	addSequential(new SwitchDirection());
     	addSequential(new ExecuteDriveProfile(profile2));
     	addSequential(new SwitchDirection());
-    	addSequential(new DriveToPoint(90, 0, 0.4));
+    	addSequential(new DriveToPoint(85, 0, 0.4));
     	addSequential(new SwitchDirection());
-    	addSequential(new DriveToPoint(10, 0, 0.4));
+    	addSequential(new DriveToPoint(5, 0, 0.4));
     	addSequential(new SwitchDirection());
     	addSequential(new ExecuteDriveProfile(profile));
     }

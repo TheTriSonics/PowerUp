@@ -15,6 +15,7 @@ import org.usfirst.frc.team4003.robot.commands.TriggerGearRelease;
 import org.usfirst.frc.team4003.robot.commands.autonomous.*;
 import org.usfirst.frc.team4003.robot.commands.autonomous.MotionProfileTester;
 import org.usfirst.frc.team4003.robot.profiling.AutonProfile;
+import org.usfirst.frc.team4003.robot.state.CubeState;
 import org.usfirst.frc.team4003.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.Compressor;
@@ -33,6 +34,7 @@ public class Robot extends TimedRobot {
 	public static final LiftMotors lift = null;
 	public static final IntakeMotors intake = null;
 	public static final PowerUpDriveTrain drive = new PowerUpDriveTrain();
+	public static final CubeState cubeState = null;
 
     public static OI oi;
     public static Sensors sensors;
@@ -97,7 +99,7 @@ public class Robot extends TimedRobot {
     		autonomousCommand = null;
     	}
     	
-    	autonomousCommand = new RightSwitchRight();
+    	autonomousCommand = new LeftSwitchRight();
         System.out.println(autonomousCommand);
         
         if (autonomousCommand != null) {

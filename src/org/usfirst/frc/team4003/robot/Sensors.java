@@ -2,8 +2,7 @@ package org.usfirst.frc.team4003.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.*;
 
 public class Sensors {
 	
@@ -25,7 +24,7 @@ public class Sensors {
     	leftOffset = 0;
     	rightOffset = 0;
     	gyroOffset = 0;
-    	navX = new AHRS(SerialPort.Port.kMXP);
+    	navX = new AHRS(SPI.Port.kMXP);
     }
     
     private double readGyro() {

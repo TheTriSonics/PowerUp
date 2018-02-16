@@ -42,7 +42,7 @@ public class FRCLogger {
             lockFile.createNewFile();
         }
 
-        FileHandler logFile = new FileHandler(loggingFile.getAbsolutePath());
+        FileHandler logFile = new FileHandler(loggingFile.getAbsolutePath(), true);
         ConsoleHandler console = new ConsoleHandler();
 
         logFile.setFormatter(logFormatter);

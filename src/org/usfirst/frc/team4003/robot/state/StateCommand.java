@@ -1,31 +1,27 @@
-package org.usfirst.frc.team4003.robot.commands;
+package org.usfirst.frc.team4003.robot.state;
 
 import org.usfirst.frc.team4003.robot.Robot;
-import org.usfirst.frc.team4003.robot.subsystems.IntakeMotors;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class IntakeCommand extends Command {
-
-    public IntakeCommand() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.intake);
+public class StateCommand extends Command {
+	
+	boolean advance;
+    public StateCommand(boolean advance) {
+    	this.advance = advance;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if (advance) Robot.cubeState.advance();
+    	else Robot.cubeState.back();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double power = -Robot.oi.operator.getY(Hand.kLeft);
-    	if (Math.abs(power) > 0.1) Robot.intake.setState(IntakeMotors.MANUAL);
-    	Robot.intake.setPower(power);
     }
 
     // Make this return true when this Command no longer needs to run execute()

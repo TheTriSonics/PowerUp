@@ -53,6 +53,8 @@ public class PowerUpDriveTrain extends SwitchableDriveTrain {
 			left = -right;
 			right = -temp;
 		}
+		if (Math.abs(left) < 0.05) left = 0;
+		if (Math.abs(right) < 0.05) right = 0;
 		leftMaster.set(ControlMode.PercentOutput, left);
 		rightMaster.set(ControlMode.PercentOutput, right);
 	}
