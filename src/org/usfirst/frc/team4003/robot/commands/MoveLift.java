@@ -2,34 +2,31 @@ package org.usfirst.frc.team4003.robot.commands;
 
 import org.usfirst.frc.team4003.robot.Robot;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class LiftCommand extends Command {
-
-    public LiftCommand() {
+public class MoveLift extends Command {
+	int state;
+    public MoveLift(int state) {
         // Use requires() here to declare subsystem dependencies
-       requires(Robot.lift);
+        // eg. requires(chassis);
+    	this.state = state;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.lift.setState(state);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double power = -Robot.oi.operator.getY(Hand.kRight);
-    	
-    	if (power < 0) power *= 0.2;
-    	Robot.lift.setPower(power);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

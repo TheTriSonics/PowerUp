@@ -12,6 +12,7 @@ import org.usfirst.frc.team4003.robot.commands.ToggleClamp;
 import org.usfirst.frc.team4003.robot.commands.ToggleFlippers;
 import org.usfirst.frc.team4003.robot.commands.ToggleIntake;
 import org.usfirst.frc.team4003.robot.commands.TogglePusher;
+import org.usfirst.frc.team4003.robot.state.CubeStateHomeCommand;
 import org.usfirst.frc.team4003.robot.state.StateCommand;
 import org.usfirst.frc.team4003.robot.triggers.XboxTrigger;
 
@@ -39,11 +40,13 @@ public class OI {
     	XboxTrigger toggleFlippers = new XboxTrigger(operator, XboxTrigger.Y);
     	XboxTrigger advanceState = new XboxTrigger(operator, XboxTrigger.RB);
     	XboxTrigger backState = new XboxTrigger(operator, XboxTrigger.LB);
+    	XboxTrigger homeState = new XboxTrigger(operator,XboxTrigger.DPADUP);
     	
     	toggleIntake.whenActive(new ToggleIntake());
     	togglePusher.whenActive(new TogglePusher());
     	toggleClamp.whenActive(new ToggleClamp());
     	toggleFlippers.whenActive(new ToggleFlippers());
+    	//homeState.whenActive(new CubeStateHomeCommand());
     	//advanceState.whenActive(new StateCommand(true));
     	//backState.whenActive(new StateCommand(false));
 

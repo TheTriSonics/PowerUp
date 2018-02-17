@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class ExecuteDriveProfile extends Command implements Runnable {
 
-	private final double kP = 0.025;
+	private double kP = 0.025;
     private final double kAngle = 0.0125;
     private final double vMax = 1.008; // 2.88;
 	
@@ -103,6 +103,7 @@ public class ExecuteDriveProfile extends Command implements Runnable {
     	double angleError = Robot.drive.normalizeAngle(heading - Robot.drive.getHeading(), 180);
     	double correction = kAngle * angleError;
     	if (profile.getLeftWaypoints().size() - currentPoint < 20) correction = 0;
+    	if (profile.getLeftWaypoints().size() - currentPoint == 20) kP /= 2.0;
     	SmartDashboard.putNumber("heading", Robot.drive.getHeading());
     	//System.out.println(leftError + " " + rightError + " " + angleError);
     	

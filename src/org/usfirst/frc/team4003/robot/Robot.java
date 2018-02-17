@@ -47,9 +47,9 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
     	sensors = new Sensors();
-    	//Compressor c = new Compressor(0);
-		//c.setClosedLoopControl(true);
-		//c.start();
+    	Compressor c = new Compressor(0);
+		c.setClosedLoopControl(true);
+		c.start();
     	
         // Trying to instantiate our logger class for debugging.
         try {
@@ -68,6 +68,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("Auto mode", chooser);
 
         fmsAttached = false;
+        pneumatics.setState(Pneumatics.SHIFTER, true);
     }
 
     @Override
@@ -94,6 +95,8 @@ public class Robot extends TimedRobot {
     	sensors.resetDriveEncoder();
     	sensors.resetGyro();
     	sensors.resetPosition();
+    	lift.resetEncoder();
+    	pneumatics.setState(Pneumatics.SHIFTER, true);
     	if (autonomousCommand != null) {
     		autonomousCommand.cancel();
     		autonomousCommand = null;
@@ -145,6 +148,7 @@ public class Robot extends TimedRobot {
     	sensors.resetDriveEncoder();
     	sensors.resetGyro();
     	sensors.resetPosition();
+    	pneumatics.setState(Pneumatics.SHIFTER, true);
         if (autonomousCommand != null) {
             FRCLogger.log(Level.INFO, String.format("%s autonomous command was canceled. CAUSE: teleopInit()", autonomousCommand.getName()));
             autonomousCommand.cancel();
@@ -162,6 +166,7 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("RobotX", position[0]);
     	SmartDashboard.putNumber("RobotY", position[1]);
     	SmartDashboard.putNumber("Heading", drive.getHeading());
+    	SmartDashboard.putNumber("Lift Encoder", lift.getPosition());
     	//System.out.println(sensors.getLeftPosition() + " " + sensors.getRightPosition());
         Scheduler.getInstance().run();
         long currentTime = System.currentTimeMillis();

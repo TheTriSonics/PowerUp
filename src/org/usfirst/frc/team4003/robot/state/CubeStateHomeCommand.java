@@ -1,35 +1,36 @@
-package org.usfirst.frc.team4003.robot.commands;
+package org.usfirst.frc.team4003.robot.state;
 
 import org.usfirst.frc.team4003.robot.Robot;
+import org.usfirst.frc.team4003.robot.subsystems.Pneumatics;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class LiftCommand extends Command {
+public class CubeStateHomeCommand extends Command {
 
-    public LiftCommand() {
+    public CubeStateHomeCommand() {
         // Use requires() here to declare subsystem dependencies
-       requires(Robot.lift);
+        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.pneumatics.setState(Pneumatics.PUSHER, false);
+    	Robot.pneumatics.setState(Pneumatics.CLAMP, false);
+    	Robot.pneumatics.setState(Pneumatics.FLIPPERS, false);
+    	Robot.pneumatics.setState(Pneumatics.INTAKE, false);
+    	Robot.cubeState.setState(CubeState.DRIVE);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double power = -Robot.oi.operator.getY(Hand.kRight);
-    	
-    	if (power < 0) power *= 0.2;
-    	Robot.lift.setPower(power);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
