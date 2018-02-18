@@ -67,7 +67,7 @@ public class LiftMotors extends Subsystem {
 				0, 0);
 		stops[GROUND_LEVEL] = 200;
 		stops[DRIVING] = 6000;
-		stops[SWITCH] = 12000;
+		stops[SWITCH] = 13000;
 		stops[SWITCH_HIGH] = 21600;
 		stops[SCALE] = 40000;
 		stops[SCALE_HIGH] = 43000;

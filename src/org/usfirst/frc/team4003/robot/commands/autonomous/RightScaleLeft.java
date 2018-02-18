@@ -14,10 +14,14 @@ public class RightScaleLeft extends CommandGroup {
 
     public RightScaleLeft() {
     	addSequential(new CubeInit());
-    	addParallel(new PrepareCube(10000, LiftMotors.SCALE));
+    	addParallel(new PrepareCube(8500, LiftMotors.SCALE_HIGH));
     	DriveTrainProfile profile = new DriveTrainProfile("/home/lvuser/profiles/r-scale-left.profile.csv");
     	addSequential(new ExecuteDriveProfile(profile));
     	addSequential(new StateCommand(true));
+    	addSequential(new WaitForTime(200));
+    	addSequential(new WaitAndGoHome(1000));
+    	addSequential(new DriveForDistance(-24, 0.4));
+    	
     	
     	
     }

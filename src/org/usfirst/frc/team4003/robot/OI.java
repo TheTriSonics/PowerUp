@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team4003.robot;
 
+import org.usfirst.frc.team4003.robot.commands.FastDriveCommand;
 import org.usfirst.frc.team4003.robot.commands.ShiftCommand;
 import org.usfirst.frc.team4003.robot.commands.ToggleClamp;
 import org.usfirst.frc.team4003.robot.commands.ToggleFlippers;
@@ -33,6 +34,13 @@ public class OI {
     	
     	shiftHigh.whenActive(new ShiftCommand(true));
     	shiftLow.whenActive(new ShiftCommand(false));
+    	
+    	XboxTrigger slowDrive = new XboxTrigger(driver, XboxTrigger.DPADLEFT);
+    	XboxTrigger fastDrive = new XboxTrigger(driver, XboxTrigger.DPADRIGHT);
+    	
+    	slowDrive.whenActive(new FastDriveCommand(false));
+    	fastDrive.whenActive(new FastDriveCommand(true));
+    	
     	
     	XboxTrigger toggleIntake = new XboxTrigger(operator, XboxTrigger.A);
     	XboxTrigger togglePusher = new XboxTrigger(operator, XboxTrigger.B);

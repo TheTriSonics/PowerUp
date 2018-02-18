@@ -2,33 +2,32 @@ package org.usfirst.frc.team4003.robot.commands;
 
 import org.usfirst.frc.team4003.robot.Robot;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ArcadeDrive extends Command {
-
-    public ArcadeDrive() {
+public class FastDriveCommand extends Command {
+	boolean fast;
+    public FastDriveCommand(boolean fast) {
+    	this.fast = fast;
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.drive);
+        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if (fast) Robot.drive.setMaxSpeed(1);
+    	else Robot.drive.setMaxSpeed(0.6);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double throttle = -Robot.oi.driver.getY(Hand.kLeft);
-    	double steering = -0.6*Robot.oi.driver.getX(Hand.kRight);
-    	Robot.drive.arcadeDrive(throttle, steering, true);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

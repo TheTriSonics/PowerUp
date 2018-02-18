@@ -16,5 +16,6 @@ public class PrepareCube extends CommandGroup {
     	addSequential(new SetLiftHeight(height));
     	addSequential(new WaitForTime(2000));
     	addSequential(new StateCommand(true));
+    	addSequential(new WaitForTime(1000));
     }
 }

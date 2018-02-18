@@ -37,6 +37,8 @@ public class TalonDriveTrain extends SwitchableDriveTrain {
 		}
 		*/
 		//System.out.println("left power: " + left);
+		left *= maxSpeed;
+		right *= maxSpeed;
 		if (switched) {
 			double temp = left;
 			left = -right;
