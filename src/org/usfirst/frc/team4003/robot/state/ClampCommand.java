@@ -2,6 +2,7 @@ package org.usfirst.frc.team4003.robot.state;
 
 import org.usfirst.frc.team4003.robot.Robot;
 import org.usfirst.frc.team4003.robot.subsystems.IntakeMotors;
+import org.usfirst.frc.team4003.robot.subsystems.Pneumatics;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -20,12 +21,12 @@ public class ClampCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if (Robot.cubeState.getState() != Robot.cubeState.PULLINGIN) {
+    	if (Robot.cubeState.getState() != CubeState.PULLINGIN) {
     		isFinished = true;
     		return;
     	}
     	Robot.intake.setState(IntakeMotors.OFF);
-    	Robot.pneumatics.setState(Robot.pneumatics.CLAMP, true);
+    	Robot.pneumatics.setState(Pneumatics.CLAMP, false);
     	timer.start();
     }
 
@@ -33,8 +34,9 @@ public class ClampCommand extends Command {
     protected void execute() {
     	if (timer.get() >= 0.2) {
     		timer.stop();
-    		Robot.pneumatics.setState(Robot.pneumatics.FLIPPERS, false);
-    		Robot.cubeState.setState(Robot.cubeState.CLAMPCUBE);
+    		Robot.pneumatics.setState(Pneumatics.FLIPPERS, true);
+    		Robot.pneumatics.setState(Pneumatics.INTAKE, false);
+    		Robot.cubeState.setState(CubeState.CLAMPCUBE);
     		isFinished = true;
     	}
     }

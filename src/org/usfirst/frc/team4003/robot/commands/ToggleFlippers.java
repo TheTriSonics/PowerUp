@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4003.robot.commands;
 
 import org.usfirst.frc.team4003.robot.Robot;
+import org.usfirst.frc.team4003.robot.subsystems.Pneumatics;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -16,7 +17,7 @@ public class ToggleFlippers extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.pneumatics.toggleState(Robot.pneumatics.FLIPPERS);
+    	Robot.pneumatics.toggleState(Pneumatics.FLIPPERS);
     }
 
     // Called repeatedly when this Command is scheduled to run

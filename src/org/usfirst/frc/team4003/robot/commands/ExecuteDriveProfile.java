@@ -21,7 +21,6 @@ public class ExecuteDriveProfile extends Command implements Runnable {
 	private int currentPoint = 0;
 	private long lastTime;
 	private Notifier notifier;
-	private Object lock = new Object();
 	private boolean isNotifierRunning = false;
 	private long minElapsedTime = 10000;
 	private long maxElapsedTime = 0;

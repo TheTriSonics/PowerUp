@@ -19,26 +19,21 @@ public class PlaybackProfile extends Command implements Runnable {
 	
 	private CSVReader reader;
 	
-	private String filename;
 	private double[][] profile;
 	private double vmax;
-	private int points;
 	private int currentPoint = 0;
 	private long lastTime;
 	private Notifier notifier;
-	private Object lock = new Object();
 	private boolean isNotifierRunning = false;
 	private long minElapsedTime = 10000;
 	private long maxElapsedTime = 0;
 	
     public PlaybackProfile(String filename) {
         requires(Robot.drive);
-    	this.filename = filename;
     	this.reader = new CSVReader(filename);
     	//this.vmax = reader.getVmax();
     	this.vmax = 2.88;
     	this.profile = reader.parseCSV();
-    	this.points = profile.length;
     	notifier = new Notifier(this);
     }
 

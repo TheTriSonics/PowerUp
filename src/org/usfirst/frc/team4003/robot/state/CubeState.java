@@ -2,6 +2,7 @@ package org.usfirst.frc.team4003.robot.state;
 
 import org.usfirst.frc.team4003.robot.Robot;
 import org.usfirst.frc.team4003.robot.subsystems.IntakeMotors;
+import org.usfirst.frc.team4003.robot.subsystems.LiftMotors;
 import org.usfirst.frc.team4003.robot.subsystems.Pneumatics;
 
 public class CubeState {
@@ -24,48 +25,55 @@ public class CubeState {
 	}
 	
 	public void startSeeking() { 
-		if (state != DRIVE) return;
-		Robot.pneumatics.setState(Pneumatics.INTAKE, true);
-		Robot.intake.setState(IntakeMotors.ON);
-		state = SEEKING;
+		(new SeekingCommand()).start();
 	}
 	
 	public void stopSeeking() {
 		if (state != SEEKING) return;
+		Robot.pneumatics.setState(Pneumatics.CLAMP, false);
 		Robot.pneumatics.setState(Pneumatics.INTAKE, false);
+		Robot.pneumatics.setState(Pneumatics.FLIPPERS, false);
 		Robot.intake.setState(IntakeMotors.OFF);
 		state = DRIVE;
 	}
 	
 	public void startPullingIn() {
 		if (state != SEEKING) return;
-		Robot.pneumatics.setState(Pneumatics.FLIPPERS, true);
+		Robot.pneumatics.setState(Pneumatics.FLIPPERS, false);
 		state = PULLINGIN;
 	}
 	
 	public void stopPullingIn() {
 		if (state != PULLINGIN) return;
-		Robot.pneumatics.setState(Pneumatics.FLIPPERS, false);
+		Robot.pneumatics.setState(Pneumatics.FLIPPERS, true);
 		state = SEEKING;
 	}
 	
 	public void startTransport() {
 		if (state != CLAMPCUBE) return;
-		Robot.lift.setState(Robot.lift.DRIVING);
+		Robot.lift.setState(LiftMotors.DRIVING);
 		state = TRANSPORT;
 	}
 	
 	public void stopTransport() {
 		if (state != TRANSPORT) return;
-		Robot.lift.setState(Robot.lift.GROUND_LEVEL);
-		Robot.pneumatics.setState(Pneumatics.CLAMP, false);
+		Robot.lift.setState(LiftMotors.GROUND_LEVEL);
+		Robot.pneumatics.setState(Pneumatics.CLAMP, true);
+		Robot.pneumatics.setState(Pneumatics.INTAKE, true);
+		Robot.pneumatics.setState(Pneumatics.FLIPPERS, true);
+		Robot.pneumatics.setState(Pneumatics.INTAKE, true);
+		Robot.intake.setState(IntakeMotors.ON);
 		state = SEEKING;
 	}
 	
 	public void stopClamping() {
+		System.out.println("Stop  clamping!");
 		if (state != CLAMPCUBE) return;
-		Robot.lift.setState(Robot.lift.GROUND_LEVEL);
-		Robot.pneumatics.setState(Pneumatics.CLAMP, false);
+		Robot.lift.setState(LiftMotors.GROUND_LEVEL);
+		Robot.pneumatics.setState(Pneumatics.CLAMP, true);
+		Robot.pneumatics.setState(Pneumatics.INTAKE, true);
+		Robot.pneumatics.setState(Pneumatics.FLIPPERS, true);
+		Robot.intake.setState(IntakeMotors.ON);
 		state = SEEKING;
 	}
 	
@@ -77,23 +85,27 @@ public class CubeState {
 	
 	public void startPlaceCube() {
 		if (state != PREPAREPLACEMENT) return;
-		Robot.pneumatics.setState(Pneumatics.CLAMP, false);
+		Robot.pneumatics.setState(Pneumatics.CLAMP, true);
 		state = PLACECUBE;
 	}
 	
 	public void startRetractPusher() {
 		if (state != PLACECUBE) return;
+		Robot.pneumatics.setState(Pneumatics.CLAMP, false);
 		Robot.pneumatics.setState(Pneumatics.PUSHER, false);
 		state = RETRACTPUSHER;
 	}
 	
 	public void returnToDrive() {
 		if (state != RETRACTPUSHER) return;
-		Robot.lift.setState(Robot.lift.GROUND_LEVEL);
+		Robot.pneumatics.setState(Pneumatics.FLIPPERS, false);
+		Robot.pneumatics.setState(Pneumatics.INTAKE, false);
+		Robot.lift.setState(LiftMotors.GROUND_LEVEL);
 		state = DRIVE;
 	}
 	
 	public void advance() {
+		System.out.println("In advance: " + Robot.cubeState.getState());
     	switch (Robot.cubeState.getState()) {
 	    	case DRIVE:
 	    		startSeeking();

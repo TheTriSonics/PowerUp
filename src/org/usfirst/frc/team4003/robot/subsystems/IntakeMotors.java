@@ -3,7 +3,9 @@ package org.usfirst.frc.team4003.robot.subsystems;
 import org.usfirst.frc.team4003.robot.RobotMap;
 import org.usfirst.frc.team4003.robot.commands.IntakeCommand;
 
-import edu.wpi.first.wpilibj.Victor;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -11,8 +13,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class IntakeMotors extends Subsystem {
 
-	Victor left = new Victor(RobotMap.LEFT_INTAKE);
-	Victor right = new Victor(RobotMap.RIGHT_INTAKE);
+	VictorSPX left = new VictorSPX(RobotMap.LEFT_INTAKE);
+	VictorSPX right = new VictorSPX(RobotMap.RIGHT_INTAKE);
 	public static final int ON = 0;
 	public static final int OFF = 1;
 	public static final int MANUAL = 2;
@@ -42,8 +44,8 @@ public class IntakeMotors extends Subsystem {
 		}
 		}
 		if (Math.abs(power) < 0.05) power = 0;
-		right.set(power);
-		left.set(power);
+		right.set(ControlMode.PercentOutput,power);
+		left.set(ControlMode.PercentOutput,power);
 	}
 	
     public void initDefaultCommand() {

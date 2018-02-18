@@ -46,11 +46,9 @@ public class OI {
     	togglePusher.whenActive(new TogglePusher());
     	toggleClamp.whenActive(new ToggleClamp());
     	toggleFlippers.whenActive(new ToggleFlippers());
-    	//homeState.whenActive(new CubeStateHomeCommand());
-    	//advanceState.whenActive(new StateCommand(true));
-    	//backState.whenActive(new StateCommand(false));
-
-    	
+    	homeState.whenActive(new CubeStateHomeCommand());
+    	advanceState.whenActive(new StateCommand(true));
+    	backState.whenActive(new StateCommand(false));
     }
 
 }

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4003.robot.commands;
 
 import org.usfirst.frc.team4003.robot.Robot;
+import org.usfirst.frc.team4003.robot.subsystems.Pneumatics;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -19,7 +20,7 @@ public class ShiftCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.pneumatics.setState(Robot.pneumatics.SHIFTER, high);
+    	Robot.pneumatics.setState(Pneumatics.SHIFTER, high);
     }
 
     // Called repeatedly when this Command is scheduled to run

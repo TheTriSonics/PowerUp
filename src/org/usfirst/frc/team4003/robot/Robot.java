@@ -30,11 +30,11 @@ public class Robot extends TimedRobot {
 
     //public static final DriveSubsystem drive = new DriveSubsystem();
 	//public static final TalonDriveTrain drive = new TalonDriveTrain();
-	public static final Pneumatics pneumatics = null;// = new Pneumatics();
-	public static final LiftMotors lift = null;
-	public static final IntakeMotors intake = null;
+	public static final Pneumatics pneumatics = new Pneumatics();
+	public static final LiftMotors lift = new LiftMotors();
+	public static final IntakeMotors intake = new IntakeMotors();
 	public static final PowerUpDriveTrain drive = new PowerUpDriveTrain();
-	public static final CubeState cubeState = null;
+	public static final CubeState cubeState = new CubeState();
 
     public static OI oi;
     public static Sensors sensors;
@@ -60,6 +60,8 @@ public class Robot extends TimedRobot {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
+        lift.resetEncoder();
 
         oi = new OI();
         chooser.addDefault("Motion Profile Tester", new MotionProfileTester(new AutonProfile()));
@@ -68,7 +70,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("Auto mode", chooser);
 
         fmsAttached = false;
-        pneumatics.setState(Pneumatics.SHIFTER, true);
+        //pneumatics.setState(Pneumatics.SHIFTER, true);
     }
 
     @Override
@@ -96,13 +98,13 @@ public class Robot extends TimedRobot {
     	sensors.resetGyro();
     	sensors.resetPosition();
     	lift.resetEncoder();
-    	pneumatics.setState(Pneumatics.SHIFTER, true);
+    	//pneumatics.setState(Pneumatics.SHIFTER, true);
     	if (autonomousCommand != null) {
     		autonomousCommand.cancel();
     		autonomousCommand = null;
     	}
     	
-    	autonomousCommand = new LeftSwitchRight();
+    	autonomousCommand = new RightScaleLeft();
         System.out.println(autonomousCommand);
         
         if (autonomousCommand != null) {
@@ -148,7 +150,7 @@ public class Robot extends TimedRobot {
     	sensors.resetDriveEncoder();
     	sensors.resetGyro();
     	sensors.resetPosition();
-    	pneumatics.setState(Pneumatics.SHIFTER, true);
+    	//pneumatics.setState(Pneumatics.SHIFTER, true);
         if (autonomousCommand != null) {
             FRCLogger.log(Level.INFO, String.format("%s autonomous command was canceled. CAUSE: teleopInit()", autonomousCommand.getName()));
             autonomousCommand.cancel();
@@ -167,11 +169,15 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("RobotY", position[1]);
     	SmartDashboard.putNumber("Heading", drive.getHeading());
     	SmartDashboard.putNumber("Lift Encoder", lift.getPosition());
+    	SmartDashboard.putNumber("Robot State", cubeState.getState());
     	//System.out.println(sensors.getLeftPosition() + " " + sensors.getRightPosition());
         Scheduler.getInstance().run();
+        
+        /*
         long currentTime = System.currentTimeMillis();
         int leftEncoder = sensors.getLeftEncoder();
         int rightEncoder = sensors.getRightEncoder();
+        
         if (lastTime != 0) {
         	long elapsedTime = currentTime - lastTime;
         	int changeLeftEncoder = leftEncoder - lastLeftEncoder;
@@ -183,6 +189,7 @@ public class Robot extends TimedRobot {
         lastTime = currentTime;
         lastLeftEncoder = leftEncoder;
         lastRightEncoder = rightEncoder;
+        */
     }
 
     @Override

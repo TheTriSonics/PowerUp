@@ -1,6 +1,8 @@
 package org.usfirst.frc.team4003.robot.state;
 
 import org.usfirst.frc.team4003.robot.Robot;
+import org.usfirst.frc.team4003.robot.subsystems.IntakeMotors;
+import org.usfirst.frc.team4003.robot.subsystems.LiftMotors;
 import org.usfirst.frc.team4003.robot.subsystems.Pneumatics;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -21,7 +23,9 @@ public class CubeStateHomeCommand extends Command {
     	Robot.pneumatics.setState(Pneumatics.CLAMP, false);
     	Robot.pneumatics.setState(Pneumatics.FLIPPERS, false);
     	Robot.pneumatics.setState(Pneumatics.INTAKE, false);
+    	Robot.intake.setState(IntakeMotors.OFF);
     	Robot.cubeState.setState(CubeState.DRIVE);
+    	Robot.lift.setState(LiftMotors.GROUND_LEVEL);
     }
 
     // Called repeatedly when this Command is scheduled to run

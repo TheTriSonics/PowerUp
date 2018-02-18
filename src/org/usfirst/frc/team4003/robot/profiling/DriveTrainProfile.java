@@ -44,10 +44,10 @@ public class DriveTrainProfile {
 		return commands.get(j);
 	}
 	
-	public ArrayList getLeftWaypoints() {
+	public ArrayList<Waypoint> getLeftWaypoints() {
 		return leftWaypoints;
 	}
-	public ArrayList getRightWaypoints() {
+	public ArrayList<Waypoint> getRightWaypoints() {
 		return rightWaypoints;
 	}
 	public String getProfileFile() {

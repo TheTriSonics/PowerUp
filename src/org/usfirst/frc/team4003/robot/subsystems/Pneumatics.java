@@ -50,7 +50,7 @@ public class Pneumatics extends Subsystem {
 		solenoids[INTAKE].set(states[INTAKE]);
 		solenoids[FLIPPERS].set(states[FLIPPERS]);
 		for(int i = 0; i < 5; i++) {
-			SmartDashboard.putBoolean(labels[i], states[i]);
+			SmartDashboard.putBoolean(labels[i], solenoids[i].get());
 		}
 	}
 	

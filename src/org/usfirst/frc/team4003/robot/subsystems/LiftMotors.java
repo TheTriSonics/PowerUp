@@ -28,10 +28,25 @@ public class LiftMotors extends Subsystem {
 	int state = GROUND_LEVEL;
 	int encoderTarget = 0;
 	int encoderOffset = 0;
+	int holdPosition = 0;
 	public void setState(int s) {
 		state = s;
+		manual = false;
+		setHoldPosition(stops[state]);
 	}
+	
+	public void setHoldPosition(int p) {
+		holdPosition = p;
+	}
+	
+	public int getHoldPosition() {
+		return holdPosition;
+	}
+	
 	public void setManual(boolean m) {
+		if(manual && !m) {
+			holdPosition = getPosition();
+		}
 		manual = m;
 	}
 	
@@ -44,22 +59,25 @@ public class LiftMotors extends Subsystem {
 	TalonSRX slave = new TalonSRX(RobotMap.RIGHT_LIFT);
 	
 	public LiftMotors() {
-		slave.setInverted(true);
-		slave.follow(master);
+		master.setInverted(true);
+		master.setSensorPhase(true);
+		//slave.follow(master);
+		//slave.setInverted(true);
 		master.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 
 				0, 0);
-		stops[GROUND_LEVEL] = 0;
-		stops[DRIVING] = 100;
-		stops[SWITCH] = 200;
-		stops[SWITCH_HIGH] = 300;
-		stops[SCALE] = 400;
-		stops[SCALE_HIGH] = 500;
-		stops[SCALE_SUPER_HIGH] = 600;
+		stops[GROUND_LEVEL] = 200;
+		stops[DRIVING] = 6000;
+		stops[SWITCH] = 12000;
+		stops[SWITCH_HIGH] = 21600;
+		stops[SCALE] = 40000;
+		stops[SCALE_HIGH] = 43000;
+		stops[SCALE_SUPER_HIGH] = 46000;
 	}
 	
 	public void setPower(double power) {
 		if (Math.abs(power) < 0.05) power = 0;
 		master.set(ControlMode.PercentOutput, power);
+		slave.set(ControlMode.PercentOutput, power);
 	}
 	
 	public int getPosition() {

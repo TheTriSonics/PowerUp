@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4003.robot.commands.autonomous;
 
 import org.usfirst.frc.team4003.robot.commands.ExecuteDriveProfile;
-import org.usfirst.frc.team4003.robot.commands.TriggerGearRelease;
 import org.usfirst.frc.team4003.robot.profiling.DriveTrainProfile;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
