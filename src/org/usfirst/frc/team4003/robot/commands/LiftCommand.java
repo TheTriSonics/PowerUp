@@ -23,14 +23,23 @@ public class LiftCommand extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
+    int zerocount = 0;
     protected void execute() {
     	double power = -Robot.oi.operator.getY(Hand.kRight);
     	if(Math.abs(power) > 0.1) {
     		Robot.lift.setManual(true);
     	} else {
     		Robot.lift.setManual(false);
-    		double error = Robot.lift.getHoldPosition() - Robot.lift.getPosition();
+    		int position = Robot.lift.getPosition();
+    		if (position == 0) zerocount++;
+    		else zerocount = 0;
+    		double error = Robot.lift.getHoldPosition() - position;
     		power = error / 6000;
+    		if (Math.abs(power) > 1) {
+    			if (power > 1) power = 1;
+    			else power = -1;
+    		}
+    		if (zerocount > 20) power = 0;
     	}
     	if (power < 0) power *= 0.3;
     	
