@@ -67,7 +67,7 @@ public class CubeState {
 	}
 	
 	public void stopClamping() {
-		System.out.println("Stop  clamping!");
+		//System.out.println("Stop  clamping!");
 		if (state != CLAMPCUBE) return;
 		Robot.lift.setState(LiftMotors.GROUND_LEVEL);
 		Robot.pneumatics.setState(Pneumatics.CLAMP, true);
@@ -105,7 +105,7 @@ public class CubeState {
 	}
 	
 	public void advance() {
-		System.out.println("In advance: " + Robot.cubeState.getState());
+		//System.out.println("In advance: " + Robot.cubeState.getState());
     	switch (Robot.cubeState.getState()) {
 	    	case DRIVE:
 	    		startSeeking();

@@ -53,12 +53,13 @@ public class DriveToPoint extends Command {
     	
     	double leftPower = currentSpeed*ramp - correction;
     	double rightPower = currentSpeed*ramp + correction;
+    	double oneside = 0.8;
     	if (angleError > angleTolerance) {
     		leftPower = 0;
-    		rightPower = 0.6*speed;
+    		rightPower = oneside*speed;
     	} else if (angleError < -angleTolerance) {
     		rightPower = 0;
-    		leftPower = 0.6*speed;
+    		leftPower = oneside*speed;
     	}
     	Robot.drive.setPower(leftPower, rightPower);
     	

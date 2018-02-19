@@ -22,7 +22,7 @@ public class ArcadeDrive extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	double throttle = -Robot.oi.driver.getY(Hand.kLeft);
-    	double steering = -0.6*Robot.oi.driver.getX(Hand.kRight);
+    	double steering = -0.75*Robot.oi.driver.getX(Hand.kRight);
     	Robot.drive.arcadeDrive(throttle, steering, true);
     }
 

@@ -104,7 +104,7 @@ public class Robot extends TimedRobot {
     		autonomousCommand = null;
     	}
     	
-    	autonomousCommand = new RightScaleLeft();
+    	autonomousCommand = new CenterSwitchRight();
         System.out.println(autonomousCommand);
         
         if (autonomousCommand != null) {

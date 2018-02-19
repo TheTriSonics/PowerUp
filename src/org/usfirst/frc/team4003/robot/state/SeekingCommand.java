@@ -22,11 +22,11 @@ public class SeekingCommand extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	if (Robot.cubeState.getState() != CubeState.DRIVE) {
-    		System.out.println("Initialized improperly");
+    		//System.out.println("Initialized improperly");
     		isFinished = true;
     		return;
     	}
-    	System.out.println("Initialized controls");
+    	//System.out.println("Initialized controls");
     	Robot.intake.setState(IntakeMotors.ON);
     	Robot.pneumatics.setState(Pneumatics.INTAKE, true);
     	Robot.pneumatics.setState(Pneumatics.FLIPPERS, true);

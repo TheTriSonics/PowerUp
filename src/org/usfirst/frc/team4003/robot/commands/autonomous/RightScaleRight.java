@@ -15,7 +15,7 @@ public class RightScaleRight extends CommandGroup {
 
     public RightScaleRight() {
     	addSequential(new CubeInit());
-    	addParallel(new PrepareCube(5000, LiftMotors.SCALE_HIGH));
+    	addParallel(new PrepareCube(4000, LiftMotors.SCALE_HIGH));
     	DriveTrainProfile profile = new DriveTrainProfile("/home/lvuser/profiles/r-scale-right.profile.csv");
     	addSequential(new ExecuteDriveProfile(profile));
     	addSequential(new StateCommand(true));

@@ -4,6 +4,7 @@ import org.usfirst.frc.team4003.robot.Robot;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -34,12 +35,13 @@ public class LiftCommand extends Command {
     		if (position == 0) zerocount++;
     		else zerocount = 0;
     		double error = Robot.lift.getHoldPosition() - position;
+    		SmartDashboard.putNumber("error", error);
     		power = error / 6000;
     		if (Math.abs(power) > 1) {
     			if (power > 1) power = 1;
     			else power = -1;
     		}
-    		if (zerocount > 20) power = 0;
+    		//if (zerocount > 20) power = 0;
     	}
     	if (power < 0) power *= 0.3;
     	

@@ -15,13 +15,13 @@ public class LeftScaleLeft extends CommandGroup {
 
     public LeftScaleLeft() {
     	addSequential(new CubeInit());
-    	addParallel(new PrepareCube(5000, LiftMotors.SCALE_HIGH));
+    	addParallel(new PrepareCube(4000, LiftMotors.SCALE_HIGH));
     	DriveTrainProfile profile = new DriveTrainProfile("/home/lvuser/profiles/l-scale-left.profile.csv");
     	addSequential(new ExecuteDriveProfile(profile));
     	addSequential(new StateCommand(true));
     	addSequential(new WaitForTime(200));
     	addParallel(new WaitAndGoHome(1000));
-    	addSequential(new DriveForDistance(-24, 0.4));
+    	addSequential(new DriveForDistance(-18, 0.4));
     	
     }
 }

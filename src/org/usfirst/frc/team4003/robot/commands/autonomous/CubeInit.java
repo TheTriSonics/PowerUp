@@ -31,7 +31,7 @@ public class CubeInit extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(timer.get() < 0.2) {
+    	if(timer.get() < 0.1) {
     		return;
     	}
     	//timer.stop();

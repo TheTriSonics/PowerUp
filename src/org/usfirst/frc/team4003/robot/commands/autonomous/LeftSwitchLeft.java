@@ -14,7 +14,7 @@ public class LeftSwitchLeft extends CommandGroup {
 
     public LeftSwitchLeft() {
     	addSequential(new CubeInit());
-    	addSequential(new PrepareCube(2000, LiftMotors.SWITCH));
+    	addParallel(new PrepareCube(2000, LiftMotors.SWITCH));
     	DriveTrainProfile profile = new DriveTrainProfile("/home/lvuser/profiles/l-switch-left.profile.csv");
     	addSequential(new ExecuteDriveProfile(profile));
     	
@@ -29,7 +29,7 @@ public class LeftSwitchLeft extends CommandGroup {
     	addSequential(new SwitchDirection());
     	
     	addSequential(new StateCommand(true));
-    	addSequential(new DriveToPoint(205, -37, 0.4));
+    	addSequential(new DriveToPoint(205, -25, 0.4));
     	addSequential(new GrabCube());
     	addParallel(new PrepareCube(0, LiftMotors.SWITCH));
     	addSequential(new DriveForDistance(15, 0.4));

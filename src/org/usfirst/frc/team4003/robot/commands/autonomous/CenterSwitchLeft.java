@@ -29,7 +29,7 @@ public class CenterSwitchLeft extends CommandGroup {
     	addSequential(new SwitchDirection());
     	
     	addSequential(new StateCommand(true));
-    	addSequential(new DriveToPoint(80, 0, 0.4));
+    	addSequential(new DriveToPoint(67, 0, 0.45));
     	addSequential(new GrabCube());
     	addSequential(new SwitchDirection());
     	addSequential(new DriveToPoint(5, 0, 0.4));

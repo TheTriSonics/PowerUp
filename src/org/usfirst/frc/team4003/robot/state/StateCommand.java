@@ -16,7 +16,7 @@ public class StateCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	System.out.print("I am here trying to advance the cube state... or go backwards.");
+    	//  System.out.print("I am here trying to advance the cube state... or go backwards.");
     	if (advance) Robot.cubeState.advance();
     	else Robot.cubeState.back();
     }
