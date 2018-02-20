@@ -11,9 +11,13 @@ public class FRCLogger {
 
     private static Logger logger;
 
+    private static boolean competitionMode;
+
     public static void init() throws IOException {
         logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
         logger.setLevel(Level.INFO);
+
+        competitionMode = false;
 
         Logger rootLogger = Logger.getLogger("");
         Handler[] handlers = rootLogger.getHandlers();
@@ -55,8 +59,16 @@ public class FRCLogger {
         logger.setLevel(level);
     }
 
+    public static void setCompetitionMode(boolean mode) {
+        competitionMode = mode;
+    }
+
     public static void log(Level level, String message) {
-        logger.log(level, message);
+        if (competitionMode) {
+            logger.log(level, "[COMPETITION]" + message);
+        } else {
+          logger.log(level, " " + message);
+        }
     }
 
 }

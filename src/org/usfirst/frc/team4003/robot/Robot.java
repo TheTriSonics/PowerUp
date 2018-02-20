@@ -83,8 +83,8 @@ public class Robot extends TimedRobot {
         Scheduler.getInstance().run();
 
         if (!fmsAttached && DriverStation.getInstance().isFMSAttached()) {
+            FRCLogger.setCompetitionMode(true);
             FRCLogger.log(Level.INFO, "FMS Attached.");
-
             fmsAttached = true;
         }
     }
@@ -93,6 +93,14 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
     	String gamedata = DriverStation.getInstance().getGameSpecificMessage();
     	FRCLogger.log(Level.INFO, gamedata);
+
+    	if (DriverStation.getInstance().getGameSpecificMessage().length() <= 0) {
+    	  FRCLogger.log(Level.SEVERE, "GAME DATA MESSAGE IS EMPTY. FMS DID NOT SEND IN AUTONOMOUS_INIT OR " +
+            "IT IS NOT SET IN THE DRIVER STATION.");
+      } else {
+        FRCLogger.log(Level.INFO, gamedata);
+      }
+
     	SmartDashboard.putString("Game Specific Message:", gamedata);
     	sensors.resetDriveEncoder();
     	sensors.resetGyro();

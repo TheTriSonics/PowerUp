@@ -13,6 +13,6 @@ public class LogFileFormatter extends Formatter {
     public String format(LogRecord record) {
         Date date = new Date();
         String timeStamp = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(date);
-        return String.format("[%s][%s] %s \n", timeStamp, record.getLevel().getName(), record.getMessage());
+        return String.format("[%s][%s]%s \n", timeStamp, record.getLevel().getName(), record.getMessage());
     }
 }

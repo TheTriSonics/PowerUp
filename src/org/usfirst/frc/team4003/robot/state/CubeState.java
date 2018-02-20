@@ -1,9 +1,12 @@
 package org.usfirst.frc.team4003.robot.state;
 
+import org.usfirst.frc.team4003.logging.FRCLogger;
 import org.usfirst.frc.team4003.robot.Robot;
 import org.usfirst.frc.team4003.robot.subsystems.IntakeMotors;
 import org.usfirst.frc.team4003.robot.subsystems.LiftMotors;
 import org.usfirst.frc.team4003.robot.subsystems.Pneumatics;
+
+import java.util.logging.Level;
 
 public class CubeState {
 	public static final int DRIVE = 0;
@@ -113,6 +116,7 @@ public class CubeState {
 	
 	public void advance() {
 		//System.out.println("In advance: " + Robot.cubeState.getState());
+    FRCLogger.log(Level.INFO, "Advancing from current state: " + Robot.cubeState.state);
     	switch (Robot.cubeState.getState()) {
 	    	case DRIVE:
 	    		startSeeking();
@@ -139,9 +143,11 @@ public class CubeState {
 	    		returnToDrive();
 	    		return;
     	}
+      FRCLogger.log(Level.INFO, "New State: " + Robot.cubeState.state);
     }
 	
 	public void back() {
+    FRCLogger.log(Level.INFO, "Reversing from current state: " + Robot.cubeState.state);
 		switch (Robot.cubeState.getState()) {
 		case SEEKING:
 			stopSeeking();
@@ -156,6 +162,7 @@ public class CubeState {
 			stopTransport();
 			return;
 		}
+    FRCLogger.log(Level.INFO, "New State: " + Robot.cubeState.state);
 	}
 
 }
