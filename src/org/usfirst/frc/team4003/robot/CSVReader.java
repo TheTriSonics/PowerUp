@@ -39,7 +39,7 @@ public class CSVReader {
 	} catch (FileNotFoundException e) {
 	    e.printStackTrace();
 	}
-	System.out.println(lines.size());
+//	System.out.println(lines.size());
 	// the following code lets you iterate through the 2-dimensional array
 	double [][] profile = new double[lines.size()][5];
 	for(int j = 0; j < lines.size(); j++) {

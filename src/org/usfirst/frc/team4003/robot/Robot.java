@@ -113,7 +113,7 @@ public class Robot extends TimedRobot {
     	}
     	
     	autonomousCommand = new CenterSwitchLeft();
-        System.out.println(autonomousCommand);
+//        System.out.println(autonomousCommand);
         
         if (autonomousCommand != null) {
             FRCLogger.log(Level.INFO, String.format("%s autonomous command has started.", autonomousCommand.getName()));
