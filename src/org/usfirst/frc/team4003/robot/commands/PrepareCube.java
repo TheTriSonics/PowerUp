@@ -10,12 +10,17 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class PrepareCube extends CommandGroup {
+	
+	public PrepareCube(int delay, int delay2, int height) {
+		addSequential(new WaitForTime(delay));
+    	addSequential(new SetLiftHeight(height));
+    	addSequential(new WaitForTime(delay2));
+    	addSequential(new StateCommand(true));
+    	addSequential(new WaitForTime(750));
+		
+	}
 
     public PrepareCube(int delay, int height) {
-    	addSequential(new WaitForTime(delay));
-    	addSequential(new SetLiftHeight(height));
-    	addSequential(new WaitForTime(2000));
-    	addSequential(new StateCommand(true));
-    	addSequential(new WaitForTime(1000));
+    	this(delay, 2000, height);
     }
 }

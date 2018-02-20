@@ -15,7 +15,7 @@ public class RightSwitchLeft extends CommandGroup {
 
     public RightSwitchLeft() {
     	addSequential(new CubeInit());
-    	addParallel(new PrepareCube(7000, LiftMotors.SWITCH));
+    	addParallel(new PrepareCube(7000, 1000, LiftMotors.SWITCH));
     	DriveTrainProfile profile = new DriveTrainProfile("/home/lvuser/profiles/r-switch-left.profile.csv");
     	addSequential(new ExecuteDriveProfile(profile));
     	addSequential(new StateCommand(true));

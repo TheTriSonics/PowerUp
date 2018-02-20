@@ -28,15 +28,23 @@ public class LeftSwitchLeft extends CommandGroup {
     	addSequential(new ExecuteDriveProfile(profile));
     	addSequential(new SwitchDirection());
     	
+    	double x = 195;
+    	double y = -30;
+    	
+    	addSequential(new RotateToPoint(x,y,0.5));
     	addSequential(new StateCommand(true));
-    	addSequential(new DriveToPoint(205, -25, 0.4));
+    	
+    	addSequential(new DriveToPoint(x, y, 0.4));
     	addSequential(new GrabCube());
-    	addParallel(new PrepareCube(0, LiftMotors.SWITCH));
-    	addSequential(new DriveForDistance(15, 0.4));
-    	addSequential(new StateCommand(true));
-    	addSequential(new WaitForTime(200));
+    	addSequential(new PrepareCube(0, LiftMotors.SWITCH));
+    	addSequential(new WaitForTime(500));
+    	addSequential(new DriveForDistance(15, 0.3));
+    	addSequential(new TogglePusher());
+    	//addSequential(new StateCommand(true));
+    	addSequential(new WaitForTime(500));
+    	addSequential(new ToggleClamp());
     	addParallel(new WaitAndGoHome(1000));
-    	addSequential(new DriveForDistance(-24, 0.4));
+    	addSequential(new DriveForDistance(-24, 0.3));
     	
     }
 }
