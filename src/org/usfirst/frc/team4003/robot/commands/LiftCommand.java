@@ -43,9 +43,9 @@ public class LiftCommand extends Command {
     		}
     		//if (zerocount > 20) power = 0;
     	}
-    	if (power < 0) power *= 0.3;
-    	
     	int liftPosition = Robot.lift.getPosition();
+    	if (power < 0 && liftPosition < 10000) power *= 0.3;
+    	
     	if (liftPosition < LOWERLIMIT && power < 0) power = 0;
     	if (liftPosition > UPPERLIMIT && power > 0) power = 0;
     	Robot.lift.setPower(power);

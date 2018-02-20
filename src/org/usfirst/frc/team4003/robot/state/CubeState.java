@@ -89,6 +89,13 @@ public class CubeState {
 		state = PLACECUBE;
 	}
 	
+	public void placeCubeWithoutPusher() {
+		if (state != TRANSPORT) return;
+		Robot.pneumatics.setState(Pneumatics.CLAMP, true);
+		state = RETRACTPUSHER;
+	}
+
+	
 	public void startRetractPusher() {
 		if (state != PLACECUBE) return;
 		Robot.pneumatics.setState(Pneumatics.CLAMP, false);

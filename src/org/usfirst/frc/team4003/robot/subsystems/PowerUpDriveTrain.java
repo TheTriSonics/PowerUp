@@ -45,6 +45,8 @@ public class PowerUpDriveTrain extends SwitchableDriveTrain {
 
 	@Override
 	public void setPower(double left, double right) {
+		left *= maxSpeed;
+		right *= maxSpeed;
 		// TODO Auto-generated method stub
 		if (switched) {
 			double temp = left;
