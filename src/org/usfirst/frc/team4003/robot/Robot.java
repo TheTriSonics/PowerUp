@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import org.usfirst.frc.team4003.logging.FRCLogger;
 import org.usfirst.frc.team4003.robot.commands.TriggerGearRelease;
 import org.usfirst.frc.team4003.robot.commands.autonomous.*;
-import org.usfirst.frc.team4003.robot.commands.autonomous.MotionProfileTester;
 import org.usfirst.frc.team4003.robot.profiling.AutonProfile;
 import org.usfirst.frc.team4003.robot.state.CubeState;
 import org.usfirst.frc.team4003.robot.subsystems.*;
@@ -104,7 +103,7 @@ public class Robot extends TimedRobot {
     		autonomousCommand = null;
     	}
     	
-    	autonomousCommand = new CenterSwitchLeft();
+    	autonomousCommand = new CenterSwitchRight();
         System.out.println(autonomousCommand);
         
         if (autonomousCommand != null) {

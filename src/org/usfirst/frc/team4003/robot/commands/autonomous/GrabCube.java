@@ -13,7 +13,19 @@ public class GrabCube extends CommandGroup {
 
     public GrabCube() {
     	addSequential(new StateCommand(true));
-    	addSequential(new WaitForTime(500));
+    	addSequential(new WaitForTime(600));
+    	addSequential(new StateCommand(true));
+    	addSequential(new WaitForTime(200));
+    	addSequential(new StateCommand(true));
+    	addSequential(new WaitForTime(200));
+    	//addSequential(new SetLiftHeight(LiftMotors.DRIVING));
+    	//addSequential(new StateCommand(true));
+
+    }
+    
+    public GrabCube(int pause) {
+    	addSequential(new StateCommand(true));
+    	addSequential(new WaitForTime(pause));
     	addSequential(new StateCommand(true));
     	addSequential(new WaitForTime(200));
     	addSequential(new StateCommand(true));

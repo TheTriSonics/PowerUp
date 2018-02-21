@@ -25,15 +25,15 @@ public class ClampCommand extends Command {
     		isFinished = true;
     		return;
     	}
-    	Robot.intake.setState(IntakeMotors.OFF);
     	Robot.pneumatics.setState(Pneumatics.CLAMP, false);
     	timer.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (timer.get() >= 0.2) {
+    	if (timer.get() >= 0.3) {
     		timer.stop();
+    		Robot.intake.setState(IntakeMotors.OFF);
     		Robot.pneumatics.setState(Pneumatics.FLIPPERS, true);
     		Robot.pneumatics.setState(Pneumatics.INTAKE, false);
     		Robot.cubeState.setState(CubeState.CLAMPCUBE);

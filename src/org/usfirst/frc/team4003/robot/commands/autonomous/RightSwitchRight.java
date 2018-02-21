@@ -20,7 +20,7 @@ public class RightSwitchRight extends CommandGroup {
 
     public RightSwitchRight() {
     	addSequential(new CubeInit());
-    	addParallel(new PrepareCube(2000, LiftMotors.SWITCH));
+    	addParallel(new PrepareCube(1000, 1500, LiftMotors.SWITCH));
     	DriveTrainProfile profile = new DriveTrainProfile("/home/lvuser/profiles/r-switch-right.profile.csv");
     	addSequential(new ExecuteDriveProfile(profile));
     	
@@ -35,19 +35,21 @@ public class RightSwitchRight extends CommandGroup {
     	addSequential(new SwitchDirection());
     	
     	double x = 195;
-    	double y = 30;
+    	double y = 50;
     	
     	addSequential(new RotateToPoint(x,y,0.5));
     	addSequential(new StateCommand(true));
     	
     	addSequential(new DriveToPoint(x, y, 0.4));
     	addSequential(new GrabCube());
-    	addSequential(new PrepareCube(0, LiftMotors.SWITCH));
-    	addSequential(new WaitForTime(500));
-    	addSequential(new DriveForDistance(15, 0.3));
+    	addSequential(new SetLiftHeight(LiftMotors.SWITCH));
+    	addSequential(new WaitForTime(800));
+    	//addSequential(new PrepareCube(0, LiftMotors.SWITCH));
     	addSequential(new TogglePusher());
+    	addSequential(new DriveForDistance(8, 0.3));
+    	
     	//addSequential(new StateCommand(true));
-    	addSequential(new WaitForTime(500));
+    	//addSequential(new WaitForTime(500));
     	addSequential(new ToggleClamp());
     	addParallel(new WaitAndGoHome(1000));
     	addSequential(new DriveForDistance(-24, 0.3));

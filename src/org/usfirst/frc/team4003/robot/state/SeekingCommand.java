@@ -36,7 +36,7 @@ public class SeekingCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (timer.get() < 0.2) return;
+    	if (timer.get() < 0.6) return;
     	isFinished = true;
     	Robot.pneumatics.setState(Pneumatics.CLAMP, true);
     }

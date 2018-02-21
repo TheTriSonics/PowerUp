@@ -42,7 +42,7 @@ public class CubeInit extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(timer.get() > 0.4) {
+    	if(timer.get() > 0.2) {
     		timer.stop();
     		return true;
     	}

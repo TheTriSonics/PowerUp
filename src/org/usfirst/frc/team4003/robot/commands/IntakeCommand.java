@@ -24,8 +24,14 @@ public class IntakeCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	double power = -Robot.oi.operator.getY(Hand.kLeft);
+    	boolean reverse = Robot.oi.operator.getTriggerAxis(Hand.kLeft) > 0.5;
     	if (Math.abs(power) > 0.1) Robot.intake.setState(IntakeMotors.MANUAL);
-    	Robot.intake.setPower(power);
+    	
+    	if (reverse) {
+    		Robot.intake.setPower(1, -1);
+    	} else {
+    		Robot.intake.setPower(power);	
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

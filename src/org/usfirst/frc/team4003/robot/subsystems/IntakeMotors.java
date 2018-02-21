@@ -29,7 +29,7 @@ public class IntakeMotors extends Subsystem {
 	}
 	
 	public IntakeMotors() {
-		right.setInverted(true);
+		left.setInverted(true);
 	}
 	
 	public void setPower(double power) {
@@ -44,8 +44,29 @@ public class IntakeMotors extends Subsystem {
 		}
 		}
 		if (Math.abs(power) < 0.05) power = 0;
+		power *= maxPower;
 		right.set(ControlMode.PercentOutput,power);
 		left.set(ControlMode.PercentOutput,power);
+	}
+	
+	double maxPower = 0.75;
+	public void setPower(double leftPower, double rightPower) {
+		switch(state) {
+		case(ON): {
+			break;
+		}
+		case(OFF): {
+			rightPower = 0;
+			leftPower = 0;
+			break;
+		}
+		}
+		if (Math.abs(rightPower) < 0.05) rightPower = 0;
+		if (Math.abs(leftPower) < 0.05) leftPower = 0;
+		leftPower *= maxPower;
+		rightPower *= maxPower;
+		right.set(ControlMode.PercentOutput,rightPower);
+		left.set(ControlMode.PercentOutput,leftPower);
 	}
 	
     public void initDefaultCommand() {

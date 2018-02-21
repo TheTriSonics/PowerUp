@@ -25,6 +25,9 @@ public class LiftCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     int zerocount = 0;
+    double lastError = 0;
+    double kp = 1/6000.0;
+    double kd = 1/60000.0;
     protected void execute() {
     	double power = -Robot.oi.operator.getY(Hand.kRight);
     	if(Math.abs(power) > 0.1) {
@@ -35,12 +38,14 @@ public class LiftCommand extends Command {
     		if (position == 0) zerocount++;
     		else zerocount = 0;
     		double error = Robot.lift.getHoldPosition() - position;
-    		SmartDashboard.putNumber("error", error);
-    		power = error / 6000;
+    		double changeError = error - lastError;
+    		//SmartDashboard.putNumber("error", error);
+    		power = kp * error + kd * changeError;
     		if (Math.abs(power) > 1) {
     			if (power > 1) power = 1;
     			else power = -1;
     		}
+    		lastError = error;
     		//if (zerocount > 20) power = 0;
     	}
     	int liftPosition = Robot.lift.getPosition();
