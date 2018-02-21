@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4003.robot.commands;
 
+import org.usfirst.frc.team4003.logging.FRCLogger;
 import org.usfirst.frc.team4003.robot.Robot;
 import org.usfirst.frc.team4003.robot.profiling.DriveTrainProfile;
 import org.usfirst.frc.team4003.robot.profiling.Waypoint;
@@ -7,6 +8,8 @@ import org.usfirst.frc.team4003.robot.profiling.Waypoint;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import java.util.logging.Level;
 
 /**
  *
@@ -61,7 +64,7 @@ public class ExecuteDriveProfile extends Command implements Runnable {
 
     // Called once after isFinished returns true
     protected void end() {
-    	System.out.println("In End " + minElapsedTime + " " + maxElapsedTime);
+    	FRCLogger.log(Level.INFO, "Time took to execute profile: " + minElapsedTime + " | " + maxElapsedTime);
     	Robot.drive.setPower(0,0);
     	notifier.stop();
     	//Robot.drive.setLeftOutput(ControlMode.PercentOutput, 0);

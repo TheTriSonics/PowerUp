@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4003.robot.subsystems;
 
+import org.usfirst.frc.team4003.logging.FRCLogger;
 import org.usfirst.frc.team4003.robot.RobotMap;
 import org.usfirst.frc.team4003.robot.commands.LiftCommand;
 
@@ -8,6 +9,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+
+import java.util.logging.Level;
 
 /**
  *
@@ -33,6 +36,7 @@ public class LiftMotors extends Subsystem {
 		state = s;
 		manual = false;
 		setHoldPosition(stops[state]);
+    FRCLogger.log(Level.INFO, String.format("Lift set to state %d", state));
 	}
 	
 	public void setHoldPosition(int p) {

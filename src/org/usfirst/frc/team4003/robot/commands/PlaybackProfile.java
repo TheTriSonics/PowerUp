@@ -42,7 +42,7 @@ public class PlaybackProfile extends Command implements Runnable {
     	lastTime = System.currentTimeMillis(); 
     	isNotifierRunning = true;
     	notifier.startPeriodic(0.01);
-    	System.out.println("In Init");
+//    	System.out.println("In Init");
     }
     protected void execute() {
     	
@@ -101,7 +101,7 @@ public class PlaybackProfile extends Command implements Runnable {
 
     // Called once after isFinished returns true
     protected void end() {
-    	System.out.println("In End " + minElapsedTime + " " + maxElapsedTime);
+//    	System.out.println("In End " + minElapsedTime + " " + maxElapsedTime);
     	Robot.drive.setPower(0,0);
     	notifier.stop();
     	//Robot.drive.setLeftOutput(ControlMode.PercentOutput, 0);
