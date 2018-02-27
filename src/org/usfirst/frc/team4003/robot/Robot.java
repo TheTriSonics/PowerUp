@@ -8,6 +8,7 @@
 package org.usfirst.frc.team4003.robot;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.logging.Level;
 
 import org.usfirst.frc.team4003.logging.FRCLogger;
@@ -29,11 +30,17 @@ public class Robot extends TimedRobot {
 
     //public static final DriveSubsystem drive = new DriveSubsystem();
 	//public static final TalonDriveTrain drive = new TalonDriveTrain();
+	
+	
+	
 	public static final Pneumatics pneumatics = new Pneumatics();
 	public static final LiftMotors lift = new LiftMotors();
 	public static final IntakeMotors intake = new IntakeMotors();
 	public static final PowerUpDriveTrain drive = new PowerUpDriveTrain();
 	public static final CubeState cubeState = new CubeState();
+	public static AutonSwitches switches = new AutonSwitches();
+	HashMap<String, Integer> switchHash = new HashMap<String, Integer>();
+	HashMap<String, Command> commandHash = new HashMap<String, Command>();
 
     public static OI oi;
     public static Sensors sensors;
@@ -61,7 +68,24 @@ public class Robot extends TimedRobot {
         }
         
         lift.resetEncoder();
-
+        
+        switchHash.put("Pos", new Integer(1));
+		switchHash.put("LL", new Integer(2));
+		switchHash.put("LR", new Integer(3));
+		switchHash.put("RL", new Integer(4));
+		switchHash.put("RR", new Integer(5));
+		
+		commandHash.put("LeftSwitchLeft", new LeftSwitchLeft());
+		commandHash.put("LeftSwitchRight", new LeftSwitchRight());
+		commandHash.put("LeftScaleLeft", new LeftScaleLeftSide());
+		commandHash.put("LeftScaleRight", new LeftScaleRight());
+		commandHash.put("RightSwitchLeft", new RightSwitchLeft());
+		commandHash.put("RightSwitchRight", new RightSwitchRight());
+		commandHash.put("RightScaleLeft", new RightScaleLeft());
+		commandHash.put("RightScaleRight", new RightScaleRightSide());
+		commandHash.put("CenterSwitchLeft", new CenterSwitchLeft());
+		commandHash.put("CenterSwitchRight", new CenterSwitchRight());
+		
         oi = new OI();
         chooser.addDefault("Motion Profile Tester", new MotionProfileTester(new AutonProfile()));
         chooser.addObject("Normal Motion Profile", null);
@@ -87,6 +111,69 @@ public class Robot extends TimedRobot {
             fmsAttached = true;
         }
     }
+    
+    public String getAutonCommand() {
+		String gameData = DriverStation.getInstance().getGameSpecificMessage();
+		if(gameData.length() < 3) return null;
+		gameData = gameData.substring(0, 2);
+		System.out.println(gameData);
+		boolean[] switchValues = switches.getSwitchValues();
+		System.out.println(switchValues[0]);
+		boolean center = switchValues[0];
+		if (center) {
+			if (gameData.charAt(0) == 'R') {
+				return "CenterSwitchRight";
+			} else {
+				return "CenterSwitchLeft";
+			}
+		}
+		boolean left = switches.getSwitchValue(switchHash.get("Pos"));
+		boolean scale = switches.getSwitchValue(switchHash.get(gameData));
+		switch(gameData) {
+		case "LL":{
+			if(left) {
+				if(scale) return "LeftScaleLeft";
+				else return "LeftSwitchLeft";
+			} else {
+				if(scale) return "RightScaleLeft";
+				else return "RightSwitchLeft";
+			}
+		}
+		
+		case "LR":{
+			if(left) {
+				if(scale) return "LeftScaleRight";
+				else return "LeftSwitchLeft";
+			} else {
+				if(scale) return "RightScaleRight";
+				else return "RightSwitchLeft";
+			}
+		}
+		
+		case "RL":{
+			if(left) {
+				if(scale) return "LeftScaleLeft";
+				else return "LeftSwitchRight";
+			} else {
+				if(scale) return "RightScaleLeft";
+				else return "RightSwitchRight";
+			}
+		}
+		
+		default:
+		case "RR":{
+			if(left) {
+				if(scale) return "LeftScaleRight";
+				else return "LeftSwitchRight";
+			} else {
+				if(scale) return "RightScaleRight";
+				else return "RightSwitchRight";
+			}
+		}
+		
+		}
+		
+    }
 
     @Override
     public void autonomousInit() {
@@ -111,18 +198,32 @@ public class Robot extends TimedRobot {
     		autonomousCommand = null;
     	}
     	
-
-    	autonomousCommand = new CenterSwitchLeft();
-//        System.out.println(autonomousCommand);
+    	String autonString = getAutonCommand();
+    	if(autonString == null) return;
+    	autonomousCommand = commandHash.get(autonString);
+        System.out.println(autonomousCommand);
+        SmartDashboard.putString("Auton String", autonString);
         
         if (autonomousCommand != null) {
             FRCLogger.log(Level.INFO, String.format("%s autonomous command has started.", autonomousCommand.getName()));
-            autonomousCommand.start();
+            //autonomousCommand.start();
         }
     }
 
     @Override
     public void autonomousPeriodic() {
+    	if(autonomousCommand == null) {
+    		String autonString = getAutonCommand();
+        	if(autonString == null) return;
+        	autonomousCommand = commandHash.get(autonString);
+            System.out.println(autonomousCommand);
+            
+            if (autonomousCommand != null) {
+                FRCLogger.log(Level.INFO, String.format("%s autonomous command has started.", autonomousCommand.getName()));
+                //autonomousCommand.start();
+            }
+            return;
+    	}
     	sensors.updatePosition();
     	//System.out.println(sensors.getLeftPosition() + " " + sensors.getRightPosition());
         Scheduler.getInstance().run();
