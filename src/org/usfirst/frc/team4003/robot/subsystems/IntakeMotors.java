@@ -18,6 +18,8 @@ public class IntakeMotors extends Subsystem {
 	public static final int ON = 0;
 	public static final int OFF = 1;
 	public static final int MANUAL = 2;
+	public static final int LEFT = 3;
+	public static final int RIGHT = 4;
 	int state = OFF;
 	
 	public void setState(int s) {
@@ -41,6 +43,14 @@ public class IntakeMotors extends Subsystem {
 		case(OFF): {
 			power = 0;
 			break;
+		}
+		case(LEFT): {
+			setPower(1,-1);
+			return;
+		}
+		case(RIGHT): {
+			setPower(-1,1);
+			return;
 		}
 		}
 		if (Math.abs(power) < 0.05) power = 0;

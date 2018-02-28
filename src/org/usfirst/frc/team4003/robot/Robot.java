@@ -77,12 +77,14 @@ public class Robot extends TimedRobot {
 		
 		commandHash.put("LeftSwitchLeft", new LeftSwitchLeft());
 		commandHash.put("LeftSwitchRight", new LeftSwitchRight());
-		commandHash.put("LeftScaleLeft", new LeftScaleLeftSide());
+		commandHash.put("LeftScaleLeftNoCube", new LeftScaleLeftSide(false));
+		commandHash.put("LeftScaleLeftCube", new LeftScaleLeftSide(true));
 		commandHash.put("LeftScaleRight", new LeftScaleRight());
 		commandHash.put("RightSwitchLeft", new RightSwitchLeft());
 		commandHash.put("RightSwitchRight", new RightSwitchRight());
 		commandHash.put("RightScaleLeft", new RightScaleLeft());
-		commandHash.put("RightScaleRight", new RightScaleRightSide());
+		commandHash.put("RightScaleRightNoCube", new RightScaleRightSide(false));
+		commandHash.put("RightScaleRightCube", new RightScaleRightSide(true));
 		commandHash.put("CenterSwitchLeft", new CenterSwitchLeft());
 		commandHash.put("CenterSwitchRight", new CenterSwitchRight());
 		
@@ -132,7 +134,7 @@ public class Robot extends TimedRobot {
 		switch(gameData) {
 		case "LL":{
 			if(left) {
-				if(scale) return "LeftScaleLeft";
+				if(scale) return "LeftScaleLeftCube";
 				else return "LeftSwitchLeft";
 			} else {
 				if(scale) return "RightScaleLeft";
@@ -145,14 +147,14 @@ public class Robot extends TimedRobot {
 				if(scale) return "LeftScaleRight";
 				else return "LeftSwitchLeft";
 			} else {
-				if(scale) return "RightScaleRight";
+				if(scale) return "RightScaleRightNoCube";
 				else return "RightSwitchLeft";
 			}
 		}
 		
 		case "RL":{
 			if(left) {
-				if(scale) return "LeftScaleLeft";
+				if(scale) return "LeftScaleLeftNoCube";
 				else return "LeftSwitchRight";
 			} else {
 				if(scale) return "RightScaleLeft";
@@ -166,7 +168,7 @@ public class Robot extends TimedRobot {
 				if(scale) return "LeftScaleRight";
 				else return "LeftSwitchRight";
 			} else {
-				if(scale) return "RightScaleRight";
+				if(scale) return "RightScaleRightCube";
 				else return "RightSwitchRight";
 			}
 		}

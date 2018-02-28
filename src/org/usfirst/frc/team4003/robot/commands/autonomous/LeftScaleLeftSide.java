@@ -8,6 +8,7 @@ import org.usfirst.frc.team4003.robot.commands.ToggleClamp;
 import org.usfirst.frc.team4003.robot.commands.TogglePusher;
 import org.usfirst.frc.team4003.robot.profiling.DriveTrainProfile;
 import org.usfirst.frc.team4003.robot.state.StateCommand;
+import org.usfirst.frc.team4003.robot.subsystems.IntakeMotors;
 import org.usfirst.frc.team4003.robot.subsystems.LiftMotors;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -17,7 +18,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class LeftScaleLeftSide extends CommandGroup {
 
-    public LeftScaleLeftSide() {
+    public LeftScaleLeftSide(boolean placeCube) {
     	addSequential(new CubeInit());
     	addParallel(new PrepareCube(1000, 2000, LiftMotors.SCALE_HIGH));
     	DriveTrainProfile profile = new DriveTrainProfile("/home/lvuser/profiles/l-scale-l-side.profile.csv");
@@ -38,7 +39,9 @@ public class LeftScaleLeftSide extends CommandGroup {
     	addSequential(new StateCommand(true));
     	
     	addSequential(new DriveToPoint(x, y, 0.4));
-    	addSequential(new GrabCube(1200));
+    	addParallel(new DriveForDistance(-4, 0.3));
+    	addSequential(new GrabCube(600,IntakeMotors.LEFT));
+    	if(!placeCube) return;
     	//addSequential(new PrepareCube(0, LiftMotors.SWITCH));
     	addSequential(new SetLiftHeight(LiftMotors.SWITCH_HIGH));
     	addSequential(new WaitForTime(1000));

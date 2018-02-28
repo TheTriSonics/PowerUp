@@ -3,6 +3,7 @@ package org.usfirst.frc.team4003.robot.commands.autonomous;
 import org.usfirst.frc.team4003.robot.commands.*;
 import org.usfirst.frc.team4003.robot.profiling.DriveTrainProfile;
 import org.usfirst.frc.team4003.robot.state.*;
+import org.usfirst.frc.team4003.robot.subsystems.IntakeMotors;
 import org.usfirst.frc.team4003.robot.subsystems.LiftMotors;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -35,7 +36,8 @@ public class LeftSwitchLeft extends CommandGroup {
     	addSequential(new StateCommand(true));
     	
     	addSequential(new DriveToPoint(x, y, 0.4));
-    	addSequential(new GrabCube());
+    	addParallel(new DriveForDistance(-4, 0.3));
+    	addSequential(new GrabCube(400, IntakeMotors.LEFT));
     	//addSequential(new PrepareCube(0, LiftMotors.SWITCH));
     	addSequential(new SetLiftHeight(LiftMotors.SWITCH_HIGH));
     	addSequential(new WaitForTime(1000));

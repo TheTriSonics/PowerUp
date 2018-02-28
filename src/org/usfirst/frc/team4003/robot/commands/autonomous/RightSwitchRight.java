@@ -9,6 +9,7 @@ import org.usfirst.frc.team4003.robot.commands.ToggleClamp;
 import org.usfirst.frc.team4003.robot.commands.TogglePusher;
 import org.usfirst.frc.team4003.robot.profiling.DriveTrainProfile;
 import org.usfirst.frc.team4003.robot.state.StateCommand;
+import org.usfirst.frc.team4003.robot.subsystems.IntakeMotors;
 import org.usfirst.frc.team4003.robot.subsystems.LiftMotors;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -41,7 +42,8 @@ public class RightSwitchRight extends CommandGroup {
     	addSequential(new StateCommand(true));
     	
     	addSequential(new DriveToPoint(x, y, 0.4));
-    	addSequential(new GrabCube());
+    	addParallel(new DriveForDistance(-4, 0.3));
+    	addSequential(new GrabCube(400, IntakeMotors.RIGHT));
     	addSequential(new SetLiftHeight(LiftMotors.SWITCH));
     	addSequential(new WaitForTime(800));
     	//addSequential(new PrepareCube(0, LiftMotors.SWITCH));
