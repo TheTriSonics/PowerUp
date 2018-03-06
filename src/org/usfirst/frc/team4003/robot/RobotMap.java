@@ -40,6 +40,8 @@ public class RobotMap {
     public static final int LEFT_INTAKE = 1;
     public static final int RIGHT_INTAKE = 2;
     
+    public static final int CLIMBER_MOTOR = 3;
+    
     // DIOs
 	public static final int LEFT_ENCODER_A = 2;
 	public static final int LEFT_ENCODER_B = 3;

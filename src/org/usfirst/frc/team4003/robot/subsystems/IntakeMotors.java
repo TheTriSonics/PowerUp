@@ -55,8 +55,8 @@ public class IntakeMotors extends Subsystem {
 		}
 		if (Math.abs(power) < 0.05) power = 0;
 		power *= maxPower;
-		right.set(ControlMode.PercentOutput,power);
-		left.set(ControlMode.PercentOutput,power);
+		right.set(ControlMode.PercentOutput, power);
+		left.set(ControlMode.PercentOutput, power);
 	}
 	
 	double maxPower = 0.75;
@@ -75,8 +75,8 @@ public class IntakeMotors extends Subsystem {
 		if (Math.abs(leftPower) < 0.05) leftPower = 0;
 		leftPower *= maxPower;
 		rightPower *= maxPower;
-		right.set(ControlMode.PercentOutput,rightPower);
-		left.set(ControlMode.PercentOutput,leftPower);
+		right.set(ControlMode.PercentOutput, rightPower);
+		left.set(ControlMode.PercentOutput, leftPower);
 	}
 	
     public void initDefaultCommand() {
