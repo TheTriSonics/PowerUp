@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.logging.Level;
 
 import org.usfirst.frc.team4003.logging.FRCLogger;
-import org.usfirst.frc.team4003.robot.commands.TriggerGearRelease;
 import org.usfirst.frc.team4003.robot.commands.autonomous.*;
 import org.usfirst.frc.team4003.robot.profiling.AutonProfile;
 import org.usfirst.frc.team4003.robot.state.CubeState;
@@ -44,6 +43,8 @@ public class Robot extends TimedRobot {
 
     public static OI oi;
     public static Sensors sensors;
+    String gameData;
+    boolean center;
     
     private Command autonomousCommand;
     private SendableChooser<Command> chooser = new SendableChooser<>();
@@ -115,13 +116,13 @@ public class Robot extends TimedRobot {
     }
     
     public String getAutonCommand() {
-		String gameData = DriverStation.getInstance().getGameSpecificMessage();
-		if(gameData.length() < 3) return null;
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		if(gameData == null && gameData.length() < 3) return null;
 		gameData = gameData.substring(0, 2);
 		System.out.println(gameData);
 		boolean[] switchValues = switches.getSwitchValues();
 		System.out.println(switchValues[0]);
-		boolean center = switchValues[0];
+		center = switchValues[0];
 		if (center) {
 			if (gameData.charAt(0) == 'R') {
 				return "CenterSwitchRight";
@@ -179,17 +180,17 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-    	String gamedata = DriverStation.getInstance().getGameSpecificMessage();
-    	FRCLogger.log(Level.INFO, gamedata);
+    	gameData = DriverStation.getInstance().getGameSpecificMessage();
+    	FRCLogger.log(Level.INFO, gameData);
 
     	if (DriverStation.getInstance().getGameSpecificMessage().length() <= 0) {
     	  FRCLogger.log(Level.SEVERE, "GAME DATA MESSAGE IS EMPTY. FMS DID NOT SEND IN AUTONOMOUS_INIT OR " +
             "IT IS NOT SET IN THE DRIVER STATION.");
       } else {
-        FRCLogger.log(Level.INFO, gamedata);
+        FRCLogger.log(Level.INFO, gameData);
       }
 
-    	SmartDashboard.putString("Game Specific Message:", gamedata);
+    	SmartDashboard.putString("Game Specific Message:", gameData);
     	sensors.resetDriveEncoder();
     	sensors.resetGyro();
     	sensors.resetPosition();
@@ -200,30 +201,27 @@ public class Robot extends TimedRobot {
     		autonomousCommand = null;
     	}
     	
+    	
+    }
+    
+    public void startAuton() {
     	String autonString = getAutonCommand();
     	if(autonString == null) return;
-    	autonomousCommand = commandHash.get(autonString);
+    	if(center) autonomousCommand = new Center(gameData);
+    	else autonomousCommand = commandHash.get(autonString);
         System.out.println(autonomousCommand);
         SmartDashboard.putString("Auton String", autonString);
         
         if (autonomousCommand != null) {
             FRCLogger.log(Level.INFO, String.format("%s autonomous command has started.", autonomousCommand.getName()));
-            //autonomousCommand.start();
+            autonomousCommand.start();
         }
     }
 
     @Override
     public void autonomousPeriodic() {
     	if(autonomousCommand == null) {
-    		String autonString = getAutonCommand();
-        	if(autonString == null) return;
-        	autonomousCommand = commandHash.get(autonString);
-            System.out.println(autonomousCommand);
-            
-            if (autonomousCommand != null) {
-                FRCLogger.log(Level.INFO, String.format("%s autonomous command has started.", autonomousCommand.getName()));
-                //autonomousCommand.start();
-            }
+    		startAuton();
             return;
     	}
     	sensors.updatePosition();
