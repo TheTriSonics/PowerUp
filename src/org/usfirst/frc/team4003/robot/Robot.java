@@ -81,10 +81,10 @@ public class Robot extends TimedRobot {
 		commandHash.put("LeftSwitchRight", new LeftSwitchRight());
 		commandHash.put("LeftScaleLeftNoCube", new LeftScaleLeftSide(false));
 		commandHash.put("LeftScaleLeftCube", new LeftScaleLeftSide(true));
-		commandHash.put("LeftScaleRight", new LeftScaleRight());
+		commandHash.put("LeftScaleRight", new LeftScaleRight2());
 		commandHash.put("RightSwitchLeft", new RightSwitchLeft());
 		commandHash.put("RightSwitchRight", new RightSwitchRight());
-		commandHash.put("RightScaleLeft", new RightScaleLeft());
+		commandHash.put("RightScaleLeft", new RightScaleLeft2());
 		commandHash.put("RightScaleRightNoCube", new RightScaleRightSide(false));
 		commandHash.put("RightScaleRightCube", new RightScaleRightSide(true));
 		commandHash.put("CenterSwitchLeft", new CenterSwitchLeft());
