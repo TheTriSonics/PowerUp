@@ -118,7 +118,11 @@ public class Robot extends TimedRobot {
     
     public String getAutonCommand() {
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		if(gameData == null && gameData.length() < 3) return null;
+		if(gameData == null || gameData.length() < 3) return null;
+		
+		FRCLogger.log(Level.INFO, gameData);
+		SmartDashboard.putString("Game Specific Message:", gameData);
+		
 		gameData = gameData.substring(0, 2);
 		System.out.println(gameData);
 		boolean[] switchValues = switches.getSwitchValues();
@@ -184,6 +188,7 @@ public class Robot extends TimedRobot {
     	gameData = DriverStation.getInstance().getGameSpecificMessage();
     	FRCLogger.log(Level.INFO, gameData);
 
+    	/*
     	if (DriverStation.getInstance().getGameSpecificMessage().length() <= 0) {
     	  FRCLogger.log(Level.SEVERE, "GAME DATA MESSAGE IS EMPTY. FMS DID NOT SEND IN AUTONOMOUS_INIT OR " +
             "IT IS NOT SET IN THE DRIVER STATION.");
@@ -192,6 +197,7 @@ public class Robot extends TimedRobot {
         }
 
     	SmartDashboard.putString("Game Specific Message:", gameData);
+    	*/
     	sensors.resetDriveEncoder();
     	sensors.resetGyro();
     	sensors.resetPosition();
@@ -214,7 +220,7 @@ public class Robot extends TimedRobot {
     	if(center) autonomousCommand = new Center(gameData);
     	else autonomousCommand = commandHash.get(autonString);
     	
-    	autonomousCommand = new RightSwitchRight();
+    	//autonomousCommand = new RightSwitchRight();
         System.out.println(autonomousCommand);
         SmartDashboard.putString("Auton String", autonString);
         
@@ -222,6 +228,7 @@ public class Robot extends TimedRobot {
             FRCLogger.log(Level.INFO, String.format("%s autonomous command has started.", autonomousCommand.getName()));
             autonomousCommand.start();
         }
+        commandHash = null;
     }
 
     @Override

@@ -48,7 +48,11 @@ public class Center extends CommandGroup {
     	addSequential(new DriveToPoint(5, 0, 0.45));
     	addSequential(new SwitchDirection());
     	
-    	addSequential(new StateCommand(true));
+    	
+    	// Commented out on 3/7 -- test it
+    	//addSequential(new StateCommand(true));
+    	addSequential(new SetLiftHeight(LiftMotors.GROUND_LEVEL));
+    	
     	CommandGroup group = new CommandGroup();
     	group.addSequential(new WaitForTime(1000));
     	//group.addSequential(new SetLiftHeight(LiftMotors.SWITCH));

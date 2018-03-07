@@ -20,7 +20,7 @@ public class LeftScaleLeftSide extends CommandGroup {
 
     public LeftScaleLeftSide(boolean placeCube) {
     	addSequential(new CubeInit());
-    	addParallel(new PrepareCube(1000, 2000, LiftMotors.SCALE_HIGH));
+    	addParallel(new PrepareCube(2000, 2000, LiftMotors.SCALE_HIGH));
     	DriveTrainProfile profile = new DriveTrainProfile("/home/lvuser/profiles/l-scale-l-side.profile.csv");
     	addSequential(new ExecuteDriveProfile(profile));
     	
@@ -41,7 +41,10 @@ public class LeftScaleLeftSide extends CommandGroup {
     	addSequential(new DriveToPoint(x, y, 0.4));
     	addParallel(new DriveForDistance(-4, 0.3));
     	addSequential(new GrabCube(600,IntakeMotors.LEFT));
-    	if(!placeCube) return;
+    	if(!placeCube) {
+    		addSequential(new SetLiftHeight(LiftMotors.GROUND_LEVEL));
+    		return;
+    	}
     	//addSequential(new PrepareCube(0, LiftMotors.SWITCH));
     	addSequential(new SetLiftHeight(LiftMotors.SWITCH_HIGH));
     	addSequential(new WaitForTime(1000));

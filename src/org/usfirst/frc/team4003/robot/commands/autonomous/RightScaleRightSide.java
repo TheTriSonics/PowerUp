@@ -19,7 +19,7 @@ public class RightScaleRightSide extends CommandGroup {
 
     public RightScaleRightSide(boolean placeCube) {
     	addSequential(new CubeInit());
-    	addParallel(new PrepareCube(1000, 2000, LiftMotors.SCALE_HIGH));
+    	addParallel(new PrepareCube(2000, 2000, LiftMotors.SCALE_HIGH));
     	DriveTrainProfile profile = new DriveTrainProfile("/home/lvuser/profiles/r-scale-r-side.profile.csv");
     	addSequential(new ExecuteDriveProfile(profile));
     	
@@ -41,7 +41,10 @@ public class RightScaleRightSide extends CommandGroup {
     	addSequential(new DriveToPoint(x, y, 0.4));
     	addParallel(new DriveForDistance(-4, 0.3));
     	addSequential(new GrabCube(400, IntakeMotors.RIGHT));
-    	if(!placeCube) return;
+    	if(!placeCube) {
+    		addSequential(new SetLiftHeight(LiftMotors.GROUND_LEVEL));
+    		return;
+    	}
     	//addSequential(new PrepareCube(0, LiftMotors.SWITCH));
     	addSequential(new SetLiftHeight(LiftMotors.SWITCH_HIGH));
     	addSequential(new WaitForTime(800));
