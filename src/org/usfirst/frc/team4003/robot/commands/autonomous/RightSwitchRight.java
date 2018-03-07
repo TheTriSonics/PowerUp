@@ -36,7 +36,7 @@ public class RightSwitchRight extends CommandGroup {
     	addSequential(new SwitchDirection());
     	
     	double x = 195;
-    	double y = 50;
+    	double y = 47;
     	
     	addSequential(new RotateToPoint(x,y,0.5));
     	addSequential(new StateCommand(true));
@@ -44,9 +44,13 @@ public class RightSwitchRight extends CommandGroup {
     	addSequential(new DriveToPoint(x, y, 0.4));
     	addParallel(new DriveForDistance(-4, 0.3));
     	addSequential(new GrabCube(400, IntakeMotors.RIGHT));
-    	addSequential(new SetLiftHeight(LiftMotors.SWITCH));
+    	addSequential(new SetLiftHeight(LiftMotors.GROUND_LEVEL));
+    	//addSequential(new StateCommand(true));
     	addSequential(new WaitForTime(800));
     	//addSequential(new PrepareCube(0, LiftMotors.SWITCH));
+    	
+    	
+    	/*
     	addSequential(new TogglePusher());
     	addSequential(new DriveForDistance(8, 0.3));
     	
@@ -55,6 +59,9 @@ public class RightSwitchRight extends CommandGroup {
     	addSequential(new ToggleClamp());
     	addParallel(new WaitAndGoHome(1000));
     	addSequential(new DriveForDistance(-24, 0.3));
+    	*/
+    	
+    	
     	
     	/*
     	PrepareCube prepareCube = new PrepareCube(2000, LiftMotors.SWITCH);

@@ -26,14 +26,14 @@ public class LeftScaleLeftSide extends CommandGroup {
     	
     	addSequential(new StateCommand(true));
     	addSequential(new WaitForTime(200));
-    	addParallel(new WaitAndGoHome(1000));
-    	addSequential(new DriveForDistance(-18, 0.4));
+    	addParallel(new WaitAndGoHome(1200));
+    	addSequential(new DriveForDistance(-24, 0.4));
     	
     	//addParallel(new SwitchDirection());
     	addSequential(new WaitForTime(1000));
     	
     	double x = 203;
-    	double y = -44;
+    	double y = -48;
     	
     	addSequential(new RotateToPoint(x,y,0.55));
     	addSequential(new StateCommand(true));

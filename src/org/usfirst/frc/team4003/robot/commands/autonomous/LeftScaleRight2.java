@@ -21,6 +21,6 @@ public class LeftScaleRight2 extends CommandGroup {
     	addSequential(new StateCommand(true));
     	addSequential(new WaitForTime(200));
     	addParallel(new WaitAndGoHome(1000));
-    	addSequential(new DriveForDistance(-24, 0.4));
+    	addSequential(new DriveForDistance(-30, 0.4));
     }
 }

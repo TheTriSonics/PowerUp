@@ -26,7 +26,7 @@ public class RightScaleRightSide extends CommandGroup {
     	addSequential(new StateCommand(true));
     	addSequential(new WaitForTime(200));
     	addParallel(new WaitAndGoHome(1000));
-    	addSequential(new DriveForDistance(-18, 0.4));
+    	addSequential(new DriveForDistance(-24, 0.4));
     	
     	//addParallel(new SwitchDirection());
     	addSequential(new WaitForTime(1000));
@@ -40,11 +40,11 @@ public class RightScaleRightSide extends CommandGroup {
     	
     	addSequential(new DriveToPoint(x, y, 0.4));
     	addParallel(new DriveForDistance(-4, 0.3));
-    	addSequential(new GrabCube(600, IntakeMotors.RIGHT));
+    	addSequential(new GrabCube(400, IntakeMotors.RIGHT));
     	if(!placeCube) return;
     	//addSequential(new PrepareCube(0, LiftMotors.SWITCH));
     	addSequential(new SetLiftHeight(LiftMotors.SWITCH_HIGH));
-    	addSequential(new WaitForTime(1000));
+    	addSequential(new WaitForTime(800));
     	addSequential(new TogglePusher());
     	addSequential(new DriveForDistance(8, 0.3));
     	

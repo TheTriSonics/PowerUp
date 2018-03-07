@@ -39,7 +39,10 @@ public class LeftSwitchLeft extends CommandGroup {
     	addParallel(new DriveForDistance(-4, 0.3));
     	addSequential(new GrabCube(400, IntakeMotors.LEFT));
     	//addSequential(new PrepareCube(0, LiftMotors.SWITCH));
-    	addSequential(new SetLiftHeight(LiftMotors.SWITCH_HIGH));
+    	addSequential(new SetLiftHeight(LiftMotors.GROUND_LEVEL));
+    	
+    	
+    	/*
     	addSequential(new WaitForTime(1000));
     	addSequential(new TogglePusher());
     	addSequential(new DriveForDistance(8, 0.3));
@@ -49,6 +52,6 @@ public class LeftSwitchLeft extends CommandGroup {
     	addSequential(new ToggleClamp());
     	addParallel(new WaitAndGoHome(1000));
     	addSequential(new DriveForDistance(-24, 0.3));
-    	
+    	*/
     }
 }

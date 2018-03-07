@@ -42,7 +42,7 @@ public class Center extends CommandGroup {
     	addSequential(new SwitchDirection());
     	
     	addSequential(new StateCommand(true));
-    	addSequential(new DriveToPoint(67, -7, 0.45));
+    	addSequential(new DriveToPoint(67, 0, 0.45));
     	addSequential(new GrabCube());
     	addSequential(new SwitchDirection());
     	addSequential(new DriveToPoint(5, 0, 0.45));

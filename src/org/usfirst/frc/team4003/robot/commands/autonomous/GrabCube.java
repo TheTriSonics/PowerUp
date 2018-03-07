@@ -39,7 +39,7 @@ public class GrabCube extends CommandGroup {
     public GrabCube(int pause, int direction) {
     	addSequential(new StateCommand(true));//Going into pulling in state
     	addSequential(new WaitForTime(pause));
-    	addSequential(new SetIntakeState(direction));
+    	//addSequential(new SetIntakeState(direction));
     	addSequential(new WaitForTime(pause));
     	addSequential(new StateCommand(true));
     	addSequential(new WaitForTime(200));

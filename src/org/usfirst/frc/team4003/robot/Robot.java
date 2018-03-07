@@ -187,9 +187,9 @@ public class Robot extends TimedRobot {
     	if (DriverStation.getInstance().getGameSpecificMessage().length() <= 0) {
     	  FRCLogger.log(Level.SEVERE, "GAME DATA MESSAGE IS EMPTY. FMS DID NOT SEND IN AUTONOMOUS_INIT OR " +
             "IT IS NOT SET IN THE DRIVER STATION.");
-      } else {
-        FRCLogger.log(Level.INFO, gameData);
-      }
+        } else {
+          FRCLogger.log(Level.INFO, gameData);
+        }
 
     	SmartDashboard.putString("Game Specific Message:", gameData);
     	sensors.resetDriveEncoder();
@@ -197,10 +197,13 @@ public class Robot extends TimedRobot {
     	sensors.resetPosition();
     	lift.resetEncoder();
     	//pneumatics.setState(Pneumatics.SHIFTER, true);
+    	/*
     	if (autonomousCommand != null) {
     		autonomousCommand.cancel();
     		autonomousCommand = null;
     	}
+    	*/
+    	startAuton();
     	
     	
     }
@@ -210,6 +213,8 @@ public class Robot extends TimedRobot {
     	if(autonString == null) return;
     	if(center) autonomousCommand = new Center(gameData);
     	else autonomousCommand = commandHash.get(autonString);
+    	
+    	autonomousCommand = new RightSwitchRight();
         System.out.println(autonomousCommand);
         SmartDashboard.putString("Auton String", autonString);
         
@@ -257,9 +262,11 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
+    	/*
     	sensors.resetDriveEncoder();
     	sensors.resetGyro();
     	sensors.resetPosition();
+    	*/
     	//pneumatics.setState(Pneumatics.SHIFTER, true);
         if (autonomousCommand != null) {
             FRCLogger.log(Level.INFO, String.format("%s autonomous command was canceled. CAUSE: teleopInit()", autonomousCommand.getName()));
@@ -282,6 +289,13 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("Robot State", cubeState.getState());
     	//System.out.println(sensors.getLeftPosition() + " " + sensors.getRightPosition());
         Scheduler.getInstance().run();
+        
+        int cState = cubeState.getState();
+        for (int i = 0; i < 8; i++) {
+        	if (i == cState) SmartDashboard.putBoolean("State " + i, true);
+        	else SmartDashboard.putBoolean("State " + i, false);
+        }
+        
         
         /*
         long currentTime = System.currentTimeMillis();
