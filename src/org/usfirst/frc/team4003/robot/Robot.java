@@ -34,11 +34,12 @@ public class Robot extends TimedRobot {
 	
 	public static final Pneumatics pneumatics = new Pneumatics();
 	public static final LiftMotors lift = new LiftMotors();
-	//public static final ClimberMotor climber = new ClimberMotor();
+	public static final ClimberMotor climber = null;  //new ClimberMotor();
 	public static final IntakeMotors intake = new IntakeMotors();
 	public static final PowerUpDriveTrain drive = new PowerUpDriveTrain();
 	public static final CubeState cubeState = new CubeState();
 	public static AutonSwitches switches = new AutonSwitches();
+	public static boolean climbMode = false;
 	HashMap<String, Integer> switchHash = new HashMap<String, Integer>();
 	HashMap<String, Command> commandHash = new HashMap<String, Command>();
 
@@ -326,5 +327,13 @@ public class Robot extends TimedRobot {
     @Override
     public void testPeriodic() {
         
+    }
+    
+    public static void setClimbMode(boolean mode) {
+    	climbMode = mode;
+    }
+    
+    public static boolean getClimbState() {
+    	return climbMode;
     }
 }

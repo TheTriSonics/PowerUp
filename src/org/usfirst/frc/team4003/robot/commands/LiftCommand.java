@@ -29,6 +29,10 @@ public class LiftCommand extends Command {
     double kp = 1/6000.0;
     double kd = 1/60000.0;
     protected void execute() {
+    	if (Robot.getClimbState()) {
+    		Robot.lift.setPower(0);
+    		return;
+    	}
     	double power = -Robot.oi.operator.getY(Hand.kRight);
     	if(Math.abs(power) > 0.1) {
     		Robot.lift.setManual(true);

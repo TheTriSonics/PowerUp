@@ -30,7 +30,7 @@ public class ArcadeDrive extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	double throttle = -Robot.oi.driver.getY(Hand.kLeft);
-    	double steering = -0.875*Robot.oi.driver.getX(Hand.kRight);
+    	double steering = -0.8*Robot.oi.driver.getX(Hand.kRight);
     	double power = (alpha * throttle) + (alpham1 * lastThrottle);
     	double turn = (turnAlpha * steering) + turnAlpham1 * lastSteering;
     	

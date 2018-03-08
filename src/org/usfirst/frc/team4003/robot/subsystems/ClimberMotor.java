@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class ClimberMotor extends Subsystem {
 
-    //VictorSPX lift = new VictorSPX(RobotMap.CLIMBER_MOTOR);
+    VictorSPX lift = new VictorSPX(RobotMap.CLIMBER_MOTOR);
     
-    double maxPower = 0.5;
+    double maxPower = 1;
     
     public void setPower(double power) {
     	if (Math.abs(power) < 0.05) power = 0;
@@ -25,7 +25,7 @@ public class ClimberMotor extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new ClimberCommand());
+        setDefaultCommand(new ClimberCommand());
     }
 }
 
