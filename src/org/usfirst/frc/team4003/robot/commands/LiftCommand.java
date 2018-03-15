@@ -28,6 +28,7 @@ public class LiftCommand extends Command {
     double lastError = 0;
     double kp = 1/6000.0;
     double kd = 1/60000.0;
+    
     protected void execute() {
     	if (Robot.getClimbState()) {
     		Robot.lift.setPower(0);
@@ -59,6 +60,8 @@ public class LiftCommand extends Command {
     	if (liftPosition > UPPERLIMIT && power > 0) power = 0;
     	Robot.lift.setPower(power);
     }
+    
+   
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

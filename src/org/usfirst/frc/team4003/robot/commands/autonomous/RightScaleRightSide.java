@@ -43,6 +43,20 @@ public class RightScaleRightSide extends CommandGroup {
     	addSequential(new GrabCube(400, IntakeMotors.RIGHT));
     	if(!placeCube) {
     		addSequential(new SetLiftHeight(LiftMotors.GROUND_LEVEL));
+    		x += 50;
+    		y -= 12;
+    		addSequential(new RotateToPoint(x, y, 0.55));
+    		addParallel(new DriveToPoint(x, y, 0.4));
+    		addSequential(new WaitForTime(500));
+    		addSequential(new SetLiftHeight(LiftMotors.SCALE_HIGH));
+    		addSequential(new WaitForTime(1500));
+    		addSequential(new TogglePusher());
+    		addSequential(new WaitForTime(1000));
+    		addSequential(new ToggleClamp());
+    		addSequential(new WaitForTime(500));
+    		addSequential(new TogglePusher());
+    		addParallel(new WaitAndGoHome(500));
+        	addSequential(new DriveForDistance(-24, 0.4));
     		return;
     	}
     	//addSequential(new PrepareCube(0, LiftMotors.SWITCH));

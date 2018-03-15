@@ -20,7 +20,7 @@ public class ClimberMotor extends Subsystem {
     public void setPower(double power) {
     	if (Math.abs(power) < 0.05) power = 0;
     	power *= maxPower;
-		//lift.set(ControlMode.PercentOutput, power);
+		lift.set(ControlMode.PercentOutput, power);
     }
 
     public void initDefaultCommand() {

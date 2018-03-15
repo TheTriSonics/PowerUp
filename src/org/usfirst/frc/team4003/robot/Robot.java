@@ -34,7 +34,7 @@ public class Robot extends TimedRobot {
 	
 	public static final Pneumatics pneumatics = new Pneumatics();
 	public static final LiftMotors lift = new LiftMotors();
-	public static final ClimberMotor climber = null;  //new ClimberMotor();
+	public static final ClimberMotor climber = new ClimberMotor();
 	public static final IntakeMotors intake = new IntakeMotors();
 	public static final PowerUpDriveTrain drive = new PowerUpDriveTrain();
 	public static final CubeState cubeState = new CubeState();
@@ -47,6 +47,7 @@ public class Robot extends TimedRobot {
     public static Sensors sensors;
     String gameData;
     boolean center;
+    static boolean inTeleOp = false;
     
     private Command autonomousCommand;
     private SendableChooser<Command> chooser = new SendableChooser<>();
@@ -77,17 +78,23 @@ public class Robot extends TimedRobot {
 		switchHash.put("LR", new Integer(3));
 		switchHash.put("RL", new Integer(4));
 		switchHash.put("RR", new Integer(5));
+		switchHash.put("LPartner", new Integer(6));
+		switchHash.put("RPartner", new Integer(7));
 		
 		commandHash.put("LeftSwitchLeft", new LeftSwitchLeft());
-		commandHash.put("LeftSwitchRight", new LeftSwitchRight());
-		commandHash.put("LeftScaleLeftNoCube", new LeftScaleLeftSide(false));
-		commandHash.put("LeftScaleLeftCube", new LeftScaleLeftSide(true));
+		commandHash.put("LeftSwitchRight", new LeftSwitchRight2());
+		//commandHash.put("LeftScaleLeftNoCube", new LeftScaleLeftSide(false));
+		//commandHash.put("LeftScaleLeftCube", new LeftScaleLeftSide(false));
+		commandHash.put("LeftScaleLeftCube", new LeftScaleLeft());
+		commandHash.put("LeftScaleLeftNoCube", new LeftScaleLeft());
+		commandHash.put("LeftScaleLeftPartner", new LeftScaleLeft());
 		commandHash.put("LeftScaleRight", new LeftScaleRight2());
-		commandHash.put("RightSwitchLeft", new RightSwitchLeft());
+		commandHash.put("RightSwitchLeft", new RightSwitchLeft2());
 		commandHash.put("RightSwitchRight", new RightSwitchRight());
 		commandHash.put("RightScaleLeft", new RightScaleLeft2());
 		commandHash.put("RightScaleRightNoCube", new RightScaleRightSide(false));
-		commandHash.put("RightScaleRightCube", new RightScaleRightSide(true));
+		commandHash.put("RightScaleRightCube", new RightScaleRightSide(false));
+		commandHash.put("RightScaleRightPartner", new RightScaleRight());
 		commandHash.put("CenterSwitchLeft", new CenterSwitchLeft());
 		commandHash.put("CenterSwitchRight", new CenterSwitchRight());
 		
@@ -119,6 +126,10 @@ public class Robot extends TimedRobot {
     
     public String getAutonCommand() {
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		
+		// remove this
+		//gameData = "RRL";
+		
 		if(gameData == null || gameData.length() < 3) return null;
 		
 		FRCLogger.log(Level.INFO, gameData);
@@ -141,7 +152,12 @@ public class Robot extends TimedRobot {
 		switch(gameData) {
 		case "LL":{
 			if(left) {
-				if(scale) return "LeftScaleLeftCube";
+				if(scale) {
+					if(switches.getSwitchValue(switchHash.get("LPartner"))) {
+						return "LeftScaleLeftPartner";
+					}
+					return "LeftScaleLeftCube";
+				}
 				else return "LeftSwitchLeft";
 			} else {
 				if(scale) return "RightScaleLeft";
@@ -154,14 +170,24 @@ public class Robot extends TimedRobot {
 				if(scale) return "LeftScaleRight";
 				else return "LeftSwitchLeft";
 			} else {
-				if(scale) return "RightScaleRightNoCube";
+				if(scale) {
+					if(switches.getSwitchValue(switchHash.get("RPartner"))) {
+						return "RightScaleRightPartner";
+					}
+					return "RightScaleRightNoCube";
+				}
 				else return "RightSwitchLeft";
 			}
 		}
 		
 		case "RL":{
 			if(left) {
-				if(scale) return "LeftScaleLeftNoCube";
+				if(scale) {
+					if(switches.getSwitchValue(switchHash.get("LPartner"))) {
+						return "LeftScaleLeftPartner";
+					}
+					return "LeftScaleLeftNoCube";
+				}
 				else return "LeftSwitchRight";
 			} else {
 				if(scale) return "RightScaleLeft";
@@ -175,7 +201,12 @@ public class Robot extends TimedRobot {
 				if(scale) return "LeftScaleRight";
 				else return "LeftSwitchRight";
 			} else {
-				if(scale) return "RightScaleRightCube";
+				if(scale) {
+					if(switches.getSwitchValue(switchHash.get("RPartner"))) {
+						return "RightScaleRightPartner";
+					}
+					return "RightScaleRightCube";
+				}
 				else return "RightSwitchRight";
 			}
 		}
@@ -187,7 +218,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
     	gameData = DriverStation.getInstance().getGameSpecificMessage();
-    	FRCLogger.log(Level.INFO, gameData);
+    	//FRCLogger.log(Level.INFO, gameData);
 
     	/*
     	if (DriverStation.getInstance().getGameSpecificMessage().length() <= 0) {
@@ -218,6 +249,7 @@ public class Robot extends TimedRobot {
     public void startAuton() {
     	String autonString = getAutonCommand();
     	if(autonString == null) return;
+    	System.out.println(autonString);
     	if(center) autonomousCommand = new Center(gameData);
     	else autonomousCommand = commandHash.get(autonString);
     	
@@ -227,6 +259,8 @@ public class Robot extends TimedRobot {
         
         if (autonomousCommand != null) {
             FRCLogger.log(Level.INFO, String.format("%s autonomous command has started.", autonomousCommand.getName()));
+            
+            // uncomment
             autonomousCommand.start();
         }
         commandHash = null;
@@ -276,6 +310,7 @@ public class Robot extends TimedRobot {
     	sensors.resetPosition();
     	*/
     	//pneumatics.setState(Pneumatics.SHIFTER, true);
+    	inTeleOp = true;
         if (autonomousCommand != null) {
             FRCLogger.log(Level.INFO, String.format("%s autonomous command was canceled. CAUSE: teleopInit()", autonomousCommand.getName()));
             autonomousCommand.cancel();
@@ -287,6 +322,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
     	sensors.updatePosition();
+    	//System.out.println(climbMode);
     	double[] position = sensors.getPosition();
     	SmartDashboard.putNumber("leftEncoder", sensors.getLeftEncoder());
     	SmartDashboard.putNumber("rightEncoder", sensors.getRightEncoder());

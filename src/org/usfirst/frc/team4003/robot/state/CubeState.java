@@ -101,8 +101,12 @@ public class CubeState {
 	
 	public void startRetractPusher() {
 		if (state != PLACECUBE) return;
+		
+		/*
 		Robot.pneumatics.setState(Pneumatics.CLAMP, false);
 		Robot.pneumatics.setState(Pneumatics.PUSHER, false);
+		*/
+		(new RetractPusherCommand()).start();
 		state = RETRACTPUSHER;
 	}
 	

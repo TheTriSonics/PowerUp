@@ -25,6 +25,7 @@ public class LiftMotors extends Subsystem {
 	public static final int SCALE_HIGH = 5;
 	public static final int SCALE_SUPER_HIGH = 6;
 	
+	
 	int[] stops = new int[7];
 	
 	boolean manual = false;
@@ -32,6 +33,7 @@ public class LiftMotors extends Subsystem {
 	int encoderTarget = 0;
 	int encoderOffset = 0;
 	int holdPosition = 0;
+	int RAISEDLIMIT = 30000;
 	public void setState(int s) {
 		state = s;
 		manual = false;
@@ -57,6 +59,10 @@ public class LiftMotors extends Subsystem {
 	public boolean isManual() {
 		return manual;
 	}
+	
+	 public boolean isLiftRaised() {
+	    	return getPosition() > RAISEDLIMIT;
+	 }
 	
 
 	TalonSRX master = new TalonSRX(RobotMap.LEFT_LIFT);

@@ -28,6 +28,7 @@ public class SeekingCommand extends Command {
     	}
     	//System.out.println("Initialized controls");
     	Robot.intake.setState(IntakeMotors.ON);
+    	
     	Robot.pneumatics.setState(Pneumatics.INTAKE, true);
     	Robot.pneumatics.setState(Pneumatics.FLIPPERS, true);
     	timer.start();

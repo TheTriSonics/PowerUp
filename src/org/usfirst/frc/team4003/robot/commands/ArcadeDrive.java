@@ -39,7 +39,10 @@ public class ArcadeDrive extends Command {
     	} else {
     		Robot.drive.setMaxSpeed(1.0);
     	}
-    	
+    	if(Robot.lift.isLiftRaised()) {
+    		power *= 0.5;
+    		turn *= 0.5;
+    	}
     	Robot.drive.arcadeDrive(power, turn, true);
     	lastThrottle = throttle;
     	lastSteering = steering;
