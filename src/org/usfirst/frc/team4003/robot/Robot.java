@@ -83,10 +83,10 @@ public class Robot extends TimedRobot {
 		
 		commandHash.put("LeftSwitchLeft", new LeftSwitchLeft());
 		commandHash.put("LeftSwitchRight", new LeftSwitchRight2());
-		//commandHash.put("LeftScaleLeftNoCube", new LeftScaleLeftSide(false));
-		//commandHash.put("LeftScaleLeftCube", new LeftScaleLeftSide(false));
-		commandHash.put("LeftScaleLeftCube", new LeftScaleLeft());
-		commandHash.put("LeftScaleLeftNoCube", new LeftScaleLeft());
+		commandHash.put("LeftScaleLeftNoCube", new LeftScaleLeftSide(false));
+		commandHash.put("LeftScaleLeftCube", new LeftScaleLeftSide(false));
+		//commandHash.put("LeftScaleLeftCube", new LeftScaleLeft());
+		//commandHash.put("LeftScaleLeftNoCube", new LeftScaleLeft());
 		commandHash.put("LeftScaleLeftPartner", new LeftScaleLeft());
 		commandHash.put("LeftScaleRight", new LeftScaleRight2());
 		commandHash.put("RightSwitchLeft", new RightSwitchLeft2());
@@ -128,7 +128,7 @@ public class Robot extends TimedRobot {
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		
 		// remove this
-		//gameData = "RRL";
+		gameData = "RRL";
 		
 		if(gameData == null || gameData.length() < 3) return null;
 		

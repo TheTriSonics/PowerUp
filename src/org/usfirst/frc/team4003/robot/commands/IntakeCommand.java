@@ -27,7 +27,7 @@ public class IntakeCommand extends Command {
     		Robot.intake.setPower(0);
     		return;
     	}
-    	double power = -Robot.oi.operator.getY(Hand.kLeft);
+    	double power = Robot.oi.operator.getY(Hand.kLeft);
     	boolean reverse = Robot.oi.operator.getTriggerAxis(Hand.kLeft) > 0.5;
     	if (Math.abs(power) > 0.1) Robot.intake.setState(IntakeMotors.MANUAL);
     	

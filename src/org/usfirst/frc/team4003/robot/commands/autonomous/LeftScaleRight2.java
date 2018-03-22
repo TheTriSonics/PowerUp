@@ -25,7 +25,7 @@ public class LeftScaleRight2 extends CommandGroup {
     	addSequential(new DriveForDistance(-30, 0.4));
     	double x = 204;
     	double y = -195;
-    	addSequential(new RotateToPoint(x, y, 0.55));
+    	addSequential(new RotateToPoint(x, y, 0.45));
     	addSequential(new DriveToPoint(x, y, 0.4));
     	addSequential(new GrabCube(600,IntakeMotors.LEFT));
     }

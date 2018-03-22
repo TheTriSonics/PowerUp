@@ -45,6 +45,7 @@ public class LeftScaleLeftSide extends CommandGroup {
     		addSequential(new SetLiftHeight(LiftMotors.GROUND_LEVEL));
     		x += 50;
     		y += 12;
+    		/*
     		addSequential(new RotateToPoint(x, y, 0.55));
     		addParallel(new DriveToPoint(x, y, 0.4));
     		addSequential(new WaitForTime(500));
@@ -57,6 +58,7 @@ public class LeftScaleLeftSide extends CommandGroup {
     		addSequential(new TogglePusher());
     		addParallel(new WaitAndGoHome(500));
         	addSequential(new DriveForDistance(-24, 0.4));
+        	*/
     		return;
     	}
     	//addSequential(new PrepareCube(0, LiftMotors.SWITCH));

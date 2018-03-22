@@ -22,9 +22,10 @@ public class RightScaleLeft2 extends CommandGroup {
     	addSequential(new StateCommand(true));
     	addSequential(new WaitForTime(200));
     	addParallel(new WaitAndGoHome(1000));
-    	addSequential(new DriveForDistance(-24, 0.4));
-    	double x = 204;
-    	double y = 195;
+    	addSequential(new DriveForDistance(-15, 0.4));
+    	double x = 213;
+    	double y = 187;
+    	addSequential(new WaitForTime(1000));
     	addSequential(new RotateToPoint(x, y, 0.55));
     	addSequential(new DriveToPoint(x, y, 0.4));
     	addSequential(new GrabCube(600,IntakeMotors.LEFT));
