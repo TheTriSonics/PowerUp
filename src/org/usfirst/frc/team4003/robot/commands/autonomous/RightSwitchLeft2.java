@@ -15,6 +15,11 @@ public class RightSwitchLeft2 extends CommandGroup {
 
     public RightSwitchLeft2() {
     	addSequential(new CubeInit());
+    	DriveTrainProfile profile = new DriveTrainProfile("/home/lvuser/profiles/r-switch-left-3.profile.csv");
+    	addSequential(new ExecuteDriveProfile(profile));
+    	
+    	/*
+    	addSequential(new CubeInit());
     	addParallel(new PrepareCube(5000, 1500, LiftMotors.SWITCH));
     	DriveTrainProfile profile = new DriveTrainProfile("/home/lvuser/profiles/r-switch-left-2.profile.csv");
     	addSequential(new ExecuteDriveProfile(profile));
@@ -22,5 +27,6 @@ public class RightSwitchLeft2 extends CommandGroup {
     	addSequential(new WaitForTime(200));
     	addParallel(new WaitAndGoHome(1000));
     	addSequential(new DriveForDistance(-24, 0.4));
+    	*/
     }
 }

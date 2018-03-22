@@ -128,7 +128,7 @@ public class Robot extends TimedRobot {
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		
 		// remove this
-		gameData = "RRL";
+		//gameData = "RRL";
 		
 		if(gameData == null || gameData.length() < 3) return null;
 		

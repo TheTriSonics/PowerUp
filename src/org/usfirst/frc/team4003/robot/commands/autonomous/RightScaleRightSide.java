@@ -45,7 +45,7 @@ public class RightScaleRightSide extends CommandGroup {
     		addSequential(new SetLiftHeight(LiftMotors.GROUND_LEVEL));
     		x += 55;
     		y -= 7;
-    		addSequential(new RotateToPoint(x, y, 0.55));
+    		addSequential(new RotateToPoint(x, y, 0.6));
     		addParallel(new DriveToPoint(x, y, 0.4));
     		addSequential(new WaitForTime(100));
     		addSequential(new SetLiftHeight(LiftMotors.SCALE_HIGH));
