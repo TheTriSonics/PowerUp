@@ -80,6 +80,7 @@ public class Robot extends TimedRobot {
 		switchHash.put("RR", new Integer(5));
 		switchHash.put("LPartner", new Integer(6));
 		switchHash.put("RPartner", new Integer(7));
+		switchHash.put("RRD", new Integer(8));
 		
 		commandHash.put("LeftSwitchLeft", new LeftSwitchLeft());
 		commandHash.put("LeftSwitchRight", new LeftSwitchRight2());
@@ -97,6 +98,7 @@ public class Robot extends TimedRobot {
 		commandHash.put("RightScaleRightPartner", new RightScaleRight());
 		commandHash.put("CenterSwitchLeft", new CenterSwitchLeft());
 		commandHash.put("CenterSwitchRight", new CenterSwitchRight());
+		//commandHash.put("RightScaleRightDual", new RightScaleRightSide(true));
 		
         oi = new OI();
         chooser.addDefault("Motion Profile Tester", new MotionProfileTester(new AutonProfile()));
@@ -202,9 +204,15 @@ public class Robot extends TimedRobot {
 				else return "LeftSwitchRight";
 			} else {
 				if(scale) {
+					/*
+					if(switches.getSwitchValue(switchHash.get("RRD"))){
+						return "RightScaleRightDual";
+					}
+					*/
 					if(switches.getSwitchValue(switchHash.get("RPartner"))) {
 						return "RightScaleRightPartner";
 					}
+					System.out.println("LOl");
 					return "RightScaleRightCube";
 				}
 				else return "RightSwitchRight";
@@ -250,6 +258,7 @@ public class Robot extends TimedRobot {
     	String autonString = getAutonCommand();
     	if(autonString == null) return;
     	System.out.println(autonString);
+    	System.out.println(commandHash.get(autonString));
     	if(center) autonomousCommand = new Center(gameData);
     	else autonomousCommand = commandHash.get(autonString);
     	
@@ -322,8 +331,10 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
     	sensors.updatePosition();
+    	//switches.printState();
     	//System.out.println(climbMode);
     	double[] position = sensors.getPosition();
+    	//System.out.println(sensors.getHeading());
     	SmartDashboard.putNumber("leftEncoder", sensors.getLeftEncoder());
     	SmartDashboard.putNumber("rightEncoder", sensors.getRightEncoder());
     	SmartDashboard.putNumber("RobotX", position[0]);

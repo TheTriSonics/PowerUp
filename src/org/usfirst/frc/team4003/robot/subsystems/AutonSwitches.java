@@ -18,6 +18,15 @@ public class AutonSwitches extends Subsystem {
 		}
 	}
 	
+	public void printState() {
+		String s = "";
+		for (int i = 0; i < numSwitches; i++) {
+			s = s + !switches[i].get() + " ";
+		}
+		System.out.println(s);
+				
+	}
+	
 	public boolean[] getSwitchValues() {
 		boolean[] values = new boolean[numSwitches];
 		for (int i = 0; i < values.length; i++) {
