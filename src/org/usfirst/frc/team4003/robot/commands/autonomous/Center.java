@@ -24,8 +24,13 @@ public class Center extends CommandGroup {
     		profile1 = "/home/lvuser/profiles/c-switch-right.profile.csv";
     		profile2 = "/home/lvuser/profiles/c-switch-right-backwards.profile.csv";
     	}
-    	if(gameData.charAt(1) == 'L') profile3 = "/home/lvuser/profiles/c-scale-left.profile.csv";
-    	else profile3 = "/home/lvuser/profiles/c-scale-right.profile.csv";
+    	
+    	//if(gameData.charAt(1) == 'L') profile3 = "/home/lvuser/profiles/c-scale-left.profile.csv";
+    	//else profile3 = "/home/lvuser/profiles/c-scale-right.profile.csv";
+    	
+    	if(gameData.charAt(1) == 'L') profile3 = "/home/lvuser/profiles/c-switch-left-back-2.profile.csv";
+    	else profile3 = "/home/lvuser/profiles/c-switch-right-back-2.profile.csv";
+    	
     	addSequential(new CubeInit());
     	addParallel(new PrepareCube(100, LiftMotors.SWITCH));
     	DriveTrainProfile profile = new DriveTrainProfile(profile1);
@@ -45,6 +50,14 @@ public class Center extends CommandGroup {
     	addSequential(new DriveToPoint(67, 0, 0.45));
     	addSequential(new GrabCube());
     	addSequential(new SwitchDirection());
+    	addSequential(new WaitForTime(200));
+    	addSequential(new SetLiftHeight(LiftMotors.GROUND_LEVEL));
+    	
+    	DriveTrainProfile scaleProfile = new DriveTrainProfile(profile3);
+    	addSequential(new ExecuteDriveProfile(scaleProfile));
+    	
+    	
+    	/*
     	addSequential(new DriveToPoint(5, 0, 0.45));
     	addSequential(new SwitchDirection());
     	

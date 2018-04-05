@@ -11,6 +11,7 @@ import org.usfirst.frc.team4003.robot.commands.FastDriveCommand;
 import org.usfirst.frc.team4003.robot.commands.SetClimbMode;
 import org.usfirst.frc.team4003.robot.commands.SetLiftHeight;
 import org.usfirst.frc.team4003.robot.commands.ShiftCommand;
+import org.usfirst.frc.team4003.robot.commands.SwitchDirection;
 import org.usfirst.frc.team4003.robot.commands.ToggleClamp;
 import org.usfirst.frc.team4003.robot.commands.ToggleFlippers;
 import org.usfirst.frc.team4003.robot.commands.ToggleIntake;
@@ -35,9 +36,11 @@ public class OI {
     public OI() {
     	XboxTrigger shiftHigh = new XboxTrigger(driver, XboxTrigger.B);
     	XboxTrigger shiftLow = new XboxTrigger(driver, XboxTrigger.X);
+    	XboxTrigger switchDirection = new XboxTrigger(driver, XboxTrigger.A);
     	
     	shiftHigh.whenActive(new ShiftCommand(true));
     	shiftLow.whenActive(new ShiftCommand(false));
+    	switchDirection.whenActive(new SwitchDirection());
     	
     	XboxTrigger slowDrive = new XboxTrigger(driver, XboxTrigger.DPADLEFT);
     	XboxTrigger fastDrive = new XboxTrigger(driver, XboxTrigger.DPADRIGHT);

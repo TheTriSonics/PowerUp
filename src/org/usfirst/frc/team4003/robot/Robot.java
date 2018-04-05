@@ -95,6 +95,7 @@ public class Robot extends TimedRobot {
 		commandHash.put("RightScaleLeft", new RightScaleLeft2());
 		commandHash.put("RightScaleRightNoCube", new RightScaleRightSide(false));
 		commandHash.put("RightScaleRightCube", new RightScaleRightSide(false));
+		commandHash.put("RightScaleRightSwitch", new RightScaleRightSide(true));
 		commandHash.put("RightScaleRightPartner", new RightScaleRight());
 		commandHash.put("CenterSwitchLeft", new CenterSwitchLeft());
 		commandHash.put("CenterSwitchRight", new CenterSwitchRight());
@@ -205,14 +206,15 @@ public class Robot extends TimedRobot {
 			} else {
 				if(scale) {
 					/*
-					if(switches.getSwitchValue(switchHash.get("RRD"))){
-						return "RightScaleRightDual";
-					}
+					
 					*/
 					if(switches.getSwitchValue(switchHash.get("RPartner"))) {
 						return "RightScaleRightPartner";
 					}
-					System.out.println("LOl");
+					
+					if(switches.getSwitchValue(switchHash.get("RRD"))){
+						return "RightScaleRightSwitch";
+					}
 					return "RightScaleRightCube";
 				}
 				else return "RightSwitchRight";
@@ -323,6 +325,9 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null) {
             FRCLogger.log(Level.INFO, String.format("%s autonomous command was canceled. CAUSE: teleopInit()", autonomousCommand.getName()));
             autonomousCommand.cancel();
+        }
+        if(drive.isSwitched()) {
+        	drive.switchDrive();
         }
     }
 
