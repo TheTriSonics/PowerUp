@@ -74,7 +74,7 @@ public class Robot extends TimedRobot {
         lift.resetEncoder();
         
         switchHash.put("Pos", new Integer(1));
-		switchHash.put("LL", new Integer(2));
+		switchHash.put("LL", new Integer(9));
 		switchHash.put("LR", new Integer(3));
 		switchHash.put("RL", new Integer(4));
 		switchHash.put("RR", new Integer(5));
@@ -119,6 +119,7 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
+        //switches.printState();
 
         if (!fmsAttached && DriverStation.getInstance().isFMSAttached()) {
             FRCLogger.setCompetitionMode(true);
@@ -131,7 +132,7 @@ public class Robot extends TimedRobot {
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		
 		// remove this
-		//gameData = "RRL";
+		//gameData = "LRL";
 		
 		if(gameData == null || gameData.length() < 3) return null;
 		
@@ -163,14 +164,26 @@ public class Robot extends TimedRobot {
 				}
 				else return "LeftSwitchLeft";
 			} else {
-				if(scale) return "RightScaleLeft";
+				if(scale) {
+					if (switches.getSwitchValue(switchHash.get("LPartner"))) {
+						return "RightSwitchLeft";
+					}
+					return "RightScaleLeft";
+					
+				}
 				else return "RightSwitchLeft";
 			}
 		}
 		
 		case "LR":{
 			if(left) {
-				if(scale) return "LeftScaleRight";
+				if(scale) {
+					if (switches.getSwitchValue(switchHash.get("RPartner"))) {
+						return "LeftSwitchRight";
+					} else {
+						return "LeftScaleRight";
+					}
+				}
 				else return "LeftSwitchLeft";
 			} else {
 				if(scale) {
@@ -193,7 +206,13 @@ public class Robot extends TimedRobot {
 				}
 				else return "LeftSwitchRight";
 			} else {
-				if(scale) return "RightScaleLeft";
+				if(scale) {
+					if (switches.getSwitchValue(switchHash.get("LPartner"))) {
+						return "RightSwitchLeft";
+					} else {
+						return "RightScaleLeft";
+					}
+				}
 				else return "RightSwitchRight";
 			}
 		}
@@ -201,13 +220,16 @@ public class Robot extends TimedRobot {
 		default:
 		case "RR":{
 			if(left) {
-				if(scale) return "LeftScaleRight";
+				if(scale) {
+					if (switches.getSwitchValue(switchHash.get("RPartner"))) {
+						return "LeftSwitchRight";
+					} else {
+						return "LeftScaleRight";
+					}
+				}
 				else return "LeftSwitchRight";
 			} else {
 				if(scale) {
-					/*
-					
-					*/
 					if(switches.getSwitchValue(switchHash.get("RPartner"))) {
 						return "RightScaleRightPartner";
 					}

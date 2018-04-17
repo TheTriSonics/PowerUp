@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class LiftCommand extends Command {
 	int LOWERLIMIT = 2000;
-	int UPPERLIMIT = 46000;
+	int UPPERLIMIT = 48000;
 	double COUNTSPERINCH = 579.3;
 
     public LiftCommand() {

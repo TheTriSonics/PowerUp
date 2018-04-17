@@ -28,13 +28,18 @@ public class IntakeCommand extends Command {
     		return;
     	}
     	double power = Robot.oi.operator.getY(Hand.kLeft);
-    	boolean reverse = Robot.oi.operator.getTriggerAxis(Hand.kLeft) > 0.5;
+    	boolean leftReverse = Robot.oi.operator.getTriggerAxis(Hand.kLeft) > 0.5;
+    	boolean rightReverse = Robot.oi.operator.getTriggerAxis(Hand.kRight) > 0.5;
     	if (Math.abs(power) > 0.1) Robot.intake.setState(IntakeMotors.MANUAL);
     	
-    	if (reverse) {
+    	if (leftReverse) {
     		Robot.intake.setPower(1, -1);
     	} else {
-    		Robot.intake.setPower(power);	
+    		if (rightReverse) {
+    			Robot.intake.setPower(-1, 1);
+    		} else { 
+    			Robot.intake.setPower(power);	
+    		}
     	}
     }
 

@@ -15,13 +15,19 @@ public class RightScaleRight extends CommandGroup {
 
     public RightScaleRight() {
     	addSequential(new CubeInit());
-    	addParallel(new PrepareCube(4000, LiftMotors.SCALE_HIGH));
     	DriveTrainProfile profile = new DriveTrainProfile("/home/lvuser/profiles/r-scale-right.profile.csv");
-    	addSequential(new ExecuteDriveProfile(profile));
+    	addParallel(new ExecuteDriveProfile(profile));
+    	addSequential(new PrepareCube(4000, 2500, LiftMotors.SCALE_HIGH));
+    	
+    	//addParallel(new PrepareCube(4000, LiftMotors.SCALE_HIGH));
+    	//addSequential(new ExecuteDriveProfile(profile));
+    	
     	addSequential(new StateCommand(true));
     	addSequential(new WaitForTime(200));
     	addParallel(new WaitAndGoHome(1000));
     	addSequential(new DriveForDistance(-24, 0.4));
+    	addSequential(new WaitForTime(1000));
+    	addSequential(new RotateToPoint(4000, 4000, 0.65));
     	
     }
 }

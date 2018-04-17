@@ -6,6 +6,7 @@ import org.usfirst.frc.team4003.robot.commands.SetLiftHeight;
 import org.usfirst.frc.team4003.robot.commands.SwitchDirection;
 import org.usfirst.frc.team4003.robot.profiling.DriveTrainProfile;
 import org.usfirst.frc.team4003.robot.state.StateCommand;
+import org.usfirst.frc.team4003.robot.subsystems.IntakeMotors;
 import org.usfirst.frc.team4003.robot.subsystems.LiftMotors;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -48,7 +49,8 @@ public class Center extends CommandGroup {
     	
     	addSequential(new StateCommand(true));
     	addSequential(new DriveToPoint(67, 0, 0.45));
-    	addSequential(new GrabCube());
+    	//addSequential(new GrabCube());
+    	addSequential(new GrabCube(300, IntakeMotors.RIGHT, 3));
     	addSequential(new SwitchDirection());
     	addSequential(new WaitForTime(200));
     	addSequential(new SetLiftHeight(LiftMotors.GROUND_LEVEL));

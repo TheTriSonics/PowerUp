@@ -57,7 +57,7 @@ public class OI {
     	XboxTrigger backState = new XboxTrigger(operator, XboxTrigger.LB);
     	XboxTrigger homeState = new XboxTrigger(operator,XboxTrigger.DPADDOWN);
     	XboxTrigger raiseLift = new XboxTrigger(operator,XboxTrigger.DPADUP);
-    	XboxTrigger placeCubeWithoutPusher = new XboxTrigger(operator,XboxTrigger.RT);
+    	//XboxTrigger placeCubeWithoutPusher = new XboxTrigger(operator,XboxTrigger.RT);
     	XboxTrigger liftState = new XboxTrigger(operator,XboxTrigger.DPADLEFT);
     	XboxTrigger climbState = new XboxTrigger(operator,XboxTrigger.DPADRIGHT);
     	
@@ -69,7 +69,7 @@ public class OI {
     	advanceState.whenActive(new StateCommand(true));
     	backState.whenActive(new StateCommand(false));
     	raiseLift.whenActive(new SetLiftHeight(LiftMotors.SCALE_HIGH));
-    	placeCubeWithoutPusher.whenActive(new PlaceWithoutPusher());
+    	//placeCubeWithoutPusher.whenActive(new PlaceWithoutPusher());
     	liftState.whenActive(new SetClimbMode(false));
     	climbState.whenActive(new SetClimbMode(true));
     }
