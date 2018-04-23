@@ -11,12 +11,17 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
 
+import org.opencv.core.Mat;
 import org.usfirst.frc.team4003.logging.FRCLogger;
 import org.usfirst.frc.team4003.robot.commands.autonomous.*;
 import org.usfirst.frc.team4003.robot.profiling.AutonProfile;
 import org.usfirst.frc.team4003.robot.state.CubeState;
 import org.usfirst.frc.team4003.robot.subsystems.*;
 
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -74,13 +79,14 @@ public class Robot extends TimedRobot {
         lift.resetEncoder();
         
         switchHash.put("Pos", new Integer(1));
-		switchHash.put("LL", new Integer(9));
+		switchHash.put("LL", new Integer(2));
 		switchHash.put("LR", new Integer(3));
 		switchHash.put("RL", new Integer(4));
 		switchHash.put("RR", new Integer(5));
 		switchHash.put("LPartner", new Integer(6));
 		switchHash.put("RPartner", new Integer(7));
 		switchHash.put("RRD", new Integer(8));
+		switchHash.put("CenterSwitch", new Integer(9));
 		
 		commandHash.put("LeftSwitchLeft", new LeftSwitchLeft());
 		commandHash.put("LeftSwitchRight", new LeftSwitchRight2());
@@ -109,6 +115,24 @@ public class Robot extends TimedRobot {
 
         fmsAttached = false;
         //pneumatics.setState(Pneumatics.SHIFTER, true);
+        try {
+        	UsbCamera camera = new UsbCamera("front", 0);
+    		camera.setResolution(320,240);
+    		camera.setFPS(15);
+    		CameraServer.getInstance().startAutomaticCapture(camera);
+    		new Thread(() -> {
+    		    CvSink cvSink = CameraServer.getInstance().getVideo();
+    		    CvSource outputStream = CameraServer.getInstance().putVideo("CubeCam", 640, 480);
+    		    Mat source = new Mat();
+    		    while(!Thread.interrupted()) {
+    		        cvSink.grabFrame(source);
+    		        outputStream.putFrame(source);
+    		    }
+    		}).start();
+        }  catch (Exception e) {
+        	System.out.println(e);
+        	System.out.println("*** Camera Server Error ***");
+        }
     }
 
     @Override
@@ -283,7 +307,7 @@ public class Robot extends TimedRobot {
     	if(autonString == null) return;
     	System.out.println(autonString);
     	System.out.println(commandHash.get(autonString));
-    	if(center) autonomousCommand = new Center(gameData);
+    	if(center && !switches.getSwitchValue(switchHash.get("CenterSwitch"))) autonomousCommand = new Center(gameData);
     	else autonomousCommand = commandHash.get(autonString);
     	
     	//autonomousCommand = new RightSwitchRight();
